@@ -11,16 +11,19 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg: #0a0a0a;
-      --surface: #111111;
-      --surface2: #181818;
-      --border: #222222;
-      --accent: #e8ff47;
-      --accent2: #47ffd4;
-      --accent3: #ff6b35;
-      --text: #f0f0f0;
-      --muted: #666666;
-      --muted2: #444444;
+      --bg: #080c14;
+      --surface: #0d1320;
+      --surface2: #111827;
+      --border: #1e2d45;
+      --border2: #243552;
+      --accent: #3b8bff;
+      --accent-glow: rgba(59,139,255,0.15);
+      --accent2: #f59e0b;
+      --accent2-glow: rgba(245,158,11,0.12);
+      --accent3: #10d9a0;
+      --text: #e8edf5;
+      --muted: #5a7494;
+      --muted2: #2d3f56;
     }
 
     html { scroll-behavior: smooth; }
@@ -37,29 +40,28 @@
 
     /* Custom cursor */
     .cursor {
-      width: 12px; height: 12px;
+      width: 10px; height: 10px;
       background: var(--accent);
       border-radius: 50%;
       position: fixed;
       top: 0; left: 0;
       pointer-events: none;
       z-index: 9999;
-      transition: transform 0.15s ease, background 0.2s;
-      mix-blend-mode: difference;
+      mix-blend-mode: normal;
+      box-shadow: 0 0 12px var(--accent);
     }
     .cursor-ring {
-      width: 36px; height: 36px;
-      border: 1px solid var(--accent);
+      width: 32px; height: 32px;
+      border: 1px solid rgba(59,139,255,0.5);
       border-radius: 50%;
       position: fixed;
       top: 0; left: 0;
       pointer-events: none;
       z-index: 9998;
       transition: all 0.25s ease;
-      opacity: 0.5;
     }
 
-    /* Noise overlay */
+    /* Deep space noise overlay */
     body::before {
       content: '';
       position: fixed;
@@ -67,7 +69,19 @@
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
       pointer-events: none;
       z-index: 1000;
-      opacity: 0.35;
+      opacity: 0.25;
+    }
+
+    /* Subtle bg gradient */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 50% at 0% 0%, rgba(59,139,255,0.04) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 40% at 100% 100%, rgba(245,158,11,0.03) 0%, transparent 60%);
+      pointer-events: none;
+      z-index: 0;
     }
 
     /* NAV */
@@ -83,9 +97,9 @@
       transition: border-color 0.3s, background 0.3s;
     }
     nav.scrolled {
-      background: rgba(10,10,10,0.92);
+      background: rgba(8,12,20,0.94);
       border-color: var(--border);
-      backdrop-filter: blur(12px);
+      backdrop-filter: blur(16px);
     }
     .nav-logo {
       font-family: 'Syne', sans-serif;
@@ -108,16 +122,17 @@
     .nav-links a:hover { color: var(--accent); }
     .nav-cta {
       background: var(--accent);
-      color: #000;
+      color: #fff;
       padding: 8px 20px;
       font-family: 'Syne', sans-serif;
       font-weight: 700;
       font-size: 12px;
       letter-spacing: 0.05em;
       text-decoration: none;
-      transition: background 0.2s;
+      transition: all 0.2s;
+      box-shadow: 0 0 20px rgba(59,139,255,0.3);
     }
-    .nav-cta:hover { background: var(--accent2); }
+    .nav-cta:hover { background: #5da0ff; box-shadow: 0 0 28px rgba(59,139,255,0.5); }
 
     /* HERO */
     #hero {
@@ -128,6 +143,7 @@
       padding: 0 48px;
       position: relative;
       overflow: hidden;
+      z-index: 1;
     }
 
     .hero-grid-bg {
@@ -136,24 +152,43 @@
       background-image:
         linear-gradient(var(--border) 1px, transparent 1px),
         linear-gradient(90deg, var(--border) 1px, transparent 1px);
-      background-size: 80px 80px;
-      opacity: 0.4;
-      mask-image: radial-gradient(ellipse 70% 70% at 20% 50%, black 30%, transparent 80%);
+      background-size: 72px 72px;
+      opacity: 0.5;
+      mask-image: radial-gradient(ellipse 80% 80% at 15% 50%, black 20%, transparent 75%);
+    }
+
+    /* Horizon line glow */
+    .hero-horizon {
+      position: absolute;
+      left: 0; right: 0;
+      top: 50%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--accent) 30%, var(--accent2) 60%, transparent);
+      opacity: 0.15;
+      pointer-events: none;
     }
 
     .hero-glow {
       position: absolute;
-      width: 600px; height: 600px;
-      background: radial-gradient(circle, rgba(232,255,71,0.08) 0%, transparent 70%);
-      top: 50%; left: 10%;
+      width: 700px; height: 700px;
+      background: radial-gradient(circle, rgba(59,139,255,0.07) 0%, transparent 65%);
+      top: 50%; left: 5%;
       transform: translate(-50%, -50%);
       pointer-events: none;
-      animation: glowPulse 4s ease-in-out infinite;
+      animation: glowPulse 5s ease-in-out infinite;
+    }
+    .hero-glow2 {
+      position: absolute;
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(245,158,11,0.05) 0%, transparent 65%);
+      top: 20%; right: 10%;
+      pointer-events: none;
+      animation: glowPulse 7s ease-in-out infinite reverse;
     }
 
     @keyframes glowPulse {
       0%, 100% { opacity: 0.6; transform: translate(-50%, -50%) scale(1); }
-      50% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
+      50% { opacity: 1; transform: translate(-50%, -50%) scale(1.08); }
     }
 
     .hero-content { position: relative; z-index: 2; max-width: 900px; }
@@ -162,8 +197,8 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      background: rgba(232,255,71,0.08);
-      border: 1px solid rgba(232,255,71,0.2);
+      background: rgba(59,139,255,0.08);
+      border: 1px solid rgba(59,139,255,0.2);
       padding: 6px 14px;
       font-size: 11px;
       letter-spacing: 0.12em;
@@ -176,11 +211,12 @@
     .hero-tag::before {
       content: '';
       width: 6px; height: 6px;
-      background: var(--accent);
+      background: var(--accent3);
       border-radius: 50%;
       animation: blink 1.5s infinite;
+      box-shadow: 0 0 8px var(--accent3);
     }
-    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
 
     .hero-name {
       font-family: 'Syne', sans-serif;
@@ -195,6 +231,7 @@
       font-style: normal;
       color: var(--accent);
       display: block;
+      text-shadow: 0 0 60px rgba(59,139,255,0.3);
     }
 
     .hero-subtitle {
@@ -211,7 +248,7 @@
       max-width: 520px;
       color: var(--muted);
       margin-top: 24px;
-      line-height: 1.8;
+      line-height: 1.9;
       opacity: 0;
       animation: fadeUp 0.7s 0.65s forwards;
     }
@@ -225,7 +262,7 @@
     }
     .btn-primary {
       background: var(--accent);
-      color: #000;
+      color: #fff;
       padding: 14px 32px;
       font-family: 'Syne', sans-serif;
       font-weight: 700;
@@ -236,10 +273,11 @@
       align-items: center;
       gap: 8px;
       transition: all 0.2s;
+      box-shadow: 0 4px 24px rgba(59,139,255,0.3);
     }
-    .btn-primary:hover { background: var(--accent2); transform: translateY(-2px); }
+    .btn-primary:hover { background: #5da0ff; transform: translateY(-2px); box-shadow: 0 8px 32px rgba(59,139,255,0.45); }
     .btn-ghost {
-      border: 1px solid var(--border);
+      border: 1px solid var(--border2);
       color: var(--muted);
       padding: 14px 32px;
       font-family: 'Syne', sans-serif;
@@ -287,10 +325,10 @@
       text-transform: uppercase;
       opacity: 0;
       animation: fadeUp 0.7s 1.2s forwards;
+      z-index: 2;
     }
     .scroll-line {
-      width: 40px;
-      height: 1px;
+      width: 40px; height: 1px;
       background: var(--muted2);
       position: relative;
       overflow: hidden;
@@ -306,7 +344,7 @@
     @keyframes scanLine { to { left: 100%; } }
 
     /* SECTION COMMON */
-    section { padding: 100px 48px; }
+    section { padding: 100px 48px; position: relative; z-index: 1; }
 
     .section-label {
       font-size: 11px;
@@ -320,8 +358,7 @@
     }
     .section-label::before {
       content: '';
-      width: 32px;
-      height: 1px;
+      width: 32px; height: 1px;
       background: var(--accent);
     }
 
@@ -336,15 +373,17 @@
 
     /* STACK MARQUEE */
     #stack {
-      padding: 40px 0;
+      padding: 36px 0;
       border-top: 1px solid var(--border);
       border-bottom: 1px solid var(--border);
       overflow: hidden;
+      position: relative;
+      z-index: 1;
+      background: var(--surface);
     }
     .marquee-track {
       display: flex;
-      gap: 0;
-      animation: marquee 30s linear infinite;
+      animation: marquee 35s linear infinite;
       width: max-content;
     }
     @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
@@ -361,9 +400,10 @@
     }
     .marquee-item span {
       width: 4px; height: 4px;
-      background: var(--accent);
+      background: var(--accent2);
       border-radius: 50%;
       flex-shrink: 0;
+      box-shadow: 0 0 6px var(--accent2);
     }
     .marquee-item.highlight { color: var(--text); }
 
@@ -373,31 +413,32 @@
       grid-template-columns: 1fr 1fr;
       gap: 80px;
       align-items: start;
+      background: var(--bg);
     }
     .about-right { padding-top: 80px; }
     .about-body {
       color: var(--muted);
       line-height: 2;
-      margin-bottom: 32px;
+      margin-bottom: 28px;
     }
     .about-body strong { color: var(--text); }
 
     .capability-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 12px;
+      gap: 10px;
       margin-top: 32px;
     }
     .capability {
       background: var(--surface);
       border: 1px solid var(--border);
-      padding: 16px;
+      padding: 14px 16px;
       font-size: 12px;
       color: var(--muted);
-      transition: all 0.2s;
+      transition: all 0.25s;
     }
-    .capability:hover { border-color: var(--accent); color: var(--text); }
-    .capability-icon { color: var(--accent); margin-bottom: 6px; font-size: 16px; }
+    .capability:hover { border-color: var(--accent); color: var(--text); background: var(--surface2); box-shadow: inset 0 0 20px rgba(59,139,255,0.05); }
+    .capability-icon { color: var(--accent2); margin-bottom: 6px; font-size: 15px; }
 
     /* PROJECTS */
     #projects { background: var(--surface); }
@@ -422,20 +463,31 @@
       position: absolute;
       top: 0; left: 0;
       width: 3px; height: 0;
-      background: var(--accent);
-      transition: height 0.3s ease;
+      background: linear-gradient(180deg, var(--accent), var(--accent3));
+      transition: height 0.35s ease;
+    }
+    .project-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 60% 40% at 0% 0%, rgba(59,139,255,0.04) 0%, transparent 60%);
+      opacity: 0;
+      transition: opacity 0.35s;
+      pointer-events: none;
     }
     .project-card:hover::before { height: 100%; }
+    .project-card:hover::after { opacity: 1; }
     .project-card:hover { background: var(--surface2); }
 
     .project-num {
       font-family: 'Syne', sans-serif;
       font-weight: 800;
-      font-size: 48px;
-      color: var(--border);
+      font-size: 44px;
+      color: var(--border2);
       line-height: 1;
-      margin-bottom: 24px;
+      margin-bottom: 20px;
       transition: color 0.25s;
+      letter-spacing: -2px;
     }
     .project-card:hover .project-num { color: var(--muted2); }
 
@@ -443,35 +495,48 @@
       display: flex;
       gap: 8px;
       flex-wrap: wrap;
-      margin-bottom: 16px;
+      margin-bottom: 14px;
     }
     .tag {
       font-size: 10px;
       letter-spacing: 0.1em;
       text-transform: uppercase;
       padding: 3px 8px;
-      border: 1px solid var(--border);
+      border: 1px solid var(--border2);
       color: var(--muted);
     }
-    .tag.active { border-color: rgba(232,255,71,0.4); color: var(--accent); background: rgba(232,255,71,0.05); }
+    .tag.active {
+      border-color: rgba(59,139,255,0.35);
+      color: var(--accent);
+      background: rgba(59,139,255,0.06);
+    }
+    .tag.amber {
+      border-color: rgba(245,158,11,0.35);
+      color: var(--accent2);
+      background: rgba(245,158,11,0.06);
+    }
+    .tag.green {
+      border-color: rgba(16,217,160,0.35);
+      color: var(--accent3);
+      background: rgba(16,217,160,0.06);
+    }
 
     .project-name {
       font-family: 'Syne', sans-serif;
       font-weight: 700;
-      font-size: 22px;
-      letter-spacing: -0.5px;
+      font-size: 20px;
+      letter-spacing: -0.4px;
       margin-bottom: 12px;
+      line-height: 1.3;
     }
     .project-desc {
       color: var(--muted);
-      line-height: 1.8;
+      line-height: 1.85;
       flex: 1;
       margin-bottom: 24px;
+      font-size: 13px;
     }
-    .project-links {
-      display: flex;
-      gap: 16px;
-    }
+    .project-links { display: flex; gap: 16px; }
     .project-link {
       font-size: 11px;
       letter-spacing: 0.08em;
@@ -487,35 +552,32 @@
     .project-link svg { width: 12px; height: 12px; }
 
     /* PROMPT LAB */
-    #promptlab {
-      border-top: 1px solid var(--border);
-    }
+    #promptlab { background: var(--bg); border-top: 1px solid var(--border); }
     .promptlab-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 16px;
-      margin-top: 0;
+      gap: 14px;
     }
     .lab-card {
       background: var(--surface);
       border: 1px solid var(--border);
       padding: 24px;
-      transition: all 0.2s;
-      position: relative;
+      transition: all 0.25s;
     }
-    .lab-card:hover { border-color: var(--accent2); transform: translateY(-3px); }
+    .lab-card:hover { border-color: var(--accent3); transform: translateY(-3px); box-shadow: 0 8px 24px rgba(16,217,160,0.08); }
     .lab-number {
       font-family: 'DM Mono', monospace;
       font-size: 11px;
-      color: var(--accent2);
+      color: var(--accent3);
       letter-spacing: 0.1em;
       margin-bottom: 8px;
     }
     .lab-title {
       font-family: 'Syne', sans-serif;
       font-weight: 700;
-      font-size: 15px;
+      font-size: 14px;
       margin-bottom: 8px;
+      line-height: 1.4;
     }
     .lab-desc { font-size: 12px; color: var(--muted); line-height: 1.7; }
 
@@ -538,10 +600,14 @@
     .exp-role {
       font-family: 'Syne', sans-serif;
       font-weight: 700;
-      font-size: 18px;
+      font-size: 17px;
       margin-bottom: 8px;
+      letter-spacing: -0.3px;
     }
-    .exp-desc { color: var(--muted); line-height: 1.8; font-size: 13px; }
+    .exp-desc { color: var(--muted); line-height: 1.85; font-size: 13px; 
+    ul {margin-top: 10px; padding-left: 20px;};
+    li {margin-bottom: 8px;};
+    }
 
     /* CONTACT */
     #contact {
@@ -553,14 +619,14 @@
     .contact-glow {
       position: absolute;
       inset: 0;
-      background: radial-gradient(ellipse 60% 60% at 50% 50%, rgba(71,255,212,0.05) 0%, transparent 70%);
+      background: radial-gradient(ellipse 55% 55% at 50% 50%, rgba(59,139,255,0.05) 0%, transparent 70%);
       pointer-events: none;
     }
     .contact-eyebrow {
       font-size: 12px;
       letter-spacing: 0.15em;
       text-transform: uppercase;
-      color: var(--accent2);
+      color: var(--accent3);
       margin-bottom: 24px;
     }
     .contact-title {
@@ -575,20 +641,21 @@
       color: var(--muted);
       max-width: 480px;
       margin: 0 auto 40px;
-      line-height: 1.8;
+      line-height: 1.85;
     }
     .contact-links {
       display: flex;
-      gap: 16px;
+      gap: 12px;
       justify-content: center;
-      margin-bottom: 64px;
+      margin-bottom: 48px;
+      flex-wrap: wrap;
     }
     .contact-link {
       display: flex;
       align-items: center;
       gap: 8px;
-      padding: 12px 24px;
-      border: 1px solid var(--border);
+      padding: 11px 22px;
+      border: 1px solid var(--border2);
       color: var(--muted);
       text-decoration: none;
       font-size: 12px;
@@ -596,7 +663,7 @@
       text-transform: uppercase;
       transition: all 0.2s;
     }
-    .contact-link:hover { border-color: var(--accent2); color: var(--accent2); }
+    .contact-link:hover { border-color: var(--accent); color: var(--accent); }
 
     /* FOOTER */
     footer {
@@ -607,18 +674,18 @@
       justify-content: space-between;
       font-size: 11px;
       color: var(--muted2);
+      background: var(--surface);
+      position: relative;
+      z-index: 1;
     }
 
     /* SCROLL REVEAL */
     .reveal {
       opacity: 0;
-      transform: translateY(32px);
-      transition: opacity 0.7s ease, transform 0.7s ease;
+      transform: translateY(28px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
     }
-    .reveal.visible {
-      opacity: 1;
-      transform: none;
-    }
+    .reveal.visible { opacity: 1; transform: none; }
 
     /* MOBILE */
     @media (max-width: 768px) {
@@ -631,18 +698,18 @@
       .hero-stats { gap: 24px; flex-wrap: wrap; }
       .exp-item { grid-template-columns: 1fr; gap: 8px; }
       footer { flex-direction: column; gap: 8px; text-align: center; }
+      .contact-links { flex-direction: column; align-items: center; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Cursor -->
   <div class="cursor" id="cursor"></div>
   <div class="cursor-ring" id="cursorRing"></div>
 
   <!-- Nav -->
   <nav id="navbar">
-    
+    <a href="#" class="nav-logo">Chuks<span>Forge</span></a>
     <ul class="nav-links">
       <li><a href="#about">About</a></li>
       <li><a href="#projects">Projects</a></li>
@@ -655,17 +722,19 @@
   <!-- Hero -->
   <section id="hero">
     <div class="hero-grid-bg"></div>
+    <div class="hero-horizon"></div>
     <div class="hero-glow"></div>
+    <div class="hero-glow2"></div>
     <div class="hero-content">
-      <div class="hero-tag"></div>
+      <div class="hero-tag">Available for freelance & full-time roles</div>
       <h1 class="hero-name">
         Chuks<br/>
         <em>Forge</em>
       </h1>
-      <p class="hero-subtitle">AI Systems Engineer & LLM Architect</p>
+      <p class="hero-subtitle">AI Systems Engineer & LLM Reliability Specialist</p>
       <p class="hero-desc">
-        I build production-ready AI systems, from LLM pipelines and multi-agent architectures 
-        to scalable SaaS platforms and APIs, turning raw prompts into deployed products 
+        I build production-ready AI systems — from LLM pipelines and multi-agent architectures
+        to scalable SaaS platforms and APIs — turning raw prompts into deployed products
         that drive real business impact.
       </p>
       <div class="hero-actions">
@@ -674,7 +743,7 @@
       </div>
       <div class="hero-stats">
         <div>
-          <div class="stat-num">9+</div>
+          <div class="stat-num">10+</div>
           <div class="stat-label">AI Projects shipped</div>
         </div>
         <div>
@@ -701,18 +770,20 @@
       <div class="marquee-item highlight"><span></span>React / Vite</div>
       <div class="marquee-item"><span></span>Node.js</div>
       <div class="marquee-item highlight"><span></span>OpenAI API</div>
-      <div class="marquee-item highlight"><span></span>Anthropic Claude</div>
-      <div class="marquee-item"><span></span>Google Gemini</div>
+      <div class="marquee-item highlight"><span></span>Anthropic Claude API</div>
+      <div class="marquee-item"><span></span>Google Gemini API</div>
       <div class="marquee-item"><span></span>OpenRouter</div>
       <div class="marquee-item highlight"><span></span>Supabase</div>
       <div class="marquee-item highlight"><span></span>Railway</div>
       <div class="marquee-item"><span></span>Vercel</div>
       <div class="marquee-item"><span></span>Tailwind CSS</div>
+      <div class="marquee-item"><span></span>LangGraph</div>
       <div class="marquee-item"><span></span>LangChain</div>
       <div class="marquee-item"><span></span>RAG Pipelines</div>
       <div class="marquee-item highlight"><span></span>Prompt Engineering</div>
+      <div class="marquee-item"><span></span>Multi-Agent Systems</div>
+      <div class="marquee-item"><span></span>Streamlit</div>
       <div class="marquee-item"><span></span>Pine Script</div>
-      <!-- duplicate for seamless loop -->
       <div class="marquee-item highlight"><span></span>Python</div>
       <div class="marquee-item highlight"><span></span>FastAPI</div>
       <div class="marquee-item highlight"><span></span>React / Vite</div>
@@ -725,9 +796,12 @@
       <div class="marquee-item highlight"><span></span>Railway</div>
       <div class="marquee-item"><span></span>Vercel</div>
       <div class="marquee-item"><span></span>Tailwind CSS</div>
+      <div class="marquee-item"><span></span>LangGraph</div>
       <div class="marquee-item"><span></span>LangChain</div>
       <div class="marquee-item"><span></span>RAG Pipelines</div>
       <div class="marquee-item highlight"><span></span>Prompt Engineering</div>
+      <div class="marquee-item"><span></span>Multi-Agent Systems</div>
+      <div class="marquee-item"><span></span>Streamlit</div>
       <div class="marquee-item"><span></span>Pine Script</div>
     </div>
   </div>
@@ -738,33 +812,39 @@
       <div class="section-label">About Me</div>
       <h2 class="section-title">Engineer.<br/>Trader.<br/>Builder.</h2>
       <p class="about-body">
-        I'm <strong>Christian Chuks (ChuksForge)</strong> — an AI Engineer and prompt architecture specialist who builds 
-        production-grade AI products. My work spans multi-tenant SaaS backends, LLM evaluation 
-        frameworks, embeddable AI widgets, and agentic pipelines.
+        I'm <strong>Christian Chuks (ChuksForge)</strong> — an AI Systems Engineer focused on designing and 
+        deploying production AI systems. I build end-to-end LLM-powered
+        applications, from evaluation pipelines to multi-tenant SaaS backends, with a focus on performance, scalability, and
+        real-world usability.
       </p>
       <p class="about-body">
-        I hold a deep background in <strong>systematic trading</strong> (price action, forex & crypto), 
-        which gives me an edge in building analytical AI tools and data-driven dashboards that 
-        actually ship and scale.
+        My background in <strong>systematic trading</strong> (price action, forex, crypto)
+        shapes how I approach AI systems — prioritizing signal over noise, robustness under uncertainty, and data-driven
+        decision making.
+
       </p>
       <p class="about-body">
-        Currently building <strong>ARIA</strong> — an AI fashion commerce assistant — and a 
-        comprehensive trading analytics platform, while working toward a portfolio of monetizable AI SaaS products.
+      Currently building <strong>ARIA</strong>, an AI-powered fashion commerce assistant, and a trading analytics platform,
+      while developing a portfolio of scalable AI SaaS products.
       </p>
     </div>
     <div class="about-right reveal">
       <div class="section-label">Core Capabilities</div>
       <div class="capability-grid">
-        <div class="capability"><div class="capability-icon">⚡</div>LLM App Development</div>
-        <div class="capability"><div class="capability-icon">🔬</div>Prompt Engineering</div>
-        <div class="capability"><div class="capability-icon">🏗️</div>Multi-tenant SaaS Architecture</div>
+        <div class="capability"><div class="capability-icon">⚡</div>LLM Application Development</div>
+        <div class="capability"><div class="capability-icon">🔬</div>Prompt Engineering & Optimization</div>
         <div class="capability"><div class="capability-icon">🤖</div>Agentic Systems</div>
         <div class="capability"><div class="capability-icon">📊</div>RAG & Knowledge Systems</div>
         <div class="capability"><div class="capability-icon">🧠</div>LLM Evaluation & Benchmarking</div>
-        <div class="capability"><div class="capability-icon">🤖</div>AI Workflow Automation</div>
-        <div class="capability"><div class="capability-icon">🏗️</div>AI SaaS Product Development</div>
-        <div class="capability"><div class="capability-icon">📈</div>Trading Analytics & Dashboards</div>
+        <div class="capability"><div class="capability-icon">⚙️</div>AI Workflow Orchestration</div>
+      </div>
+
+      <div class="section-label" style="margin-top: 40px;">Platform & Product Engineering</div>
+      <div class="capability-grid">
+        <div class="capability"><div class="capability-icon">🏗️</div>Multi-tenant SaaS Architecture</div>
+        <div class="capability"><div class="capability-icon">🚀</div>AI SaaS Product Development</div>
         <div class="capability"><div class="capability-icon">🔒</div>API Security & Proxying</div>
+        <div class="capability"><div class="capability-icon">📈</div>Data Analytics Systems</div>
       </div>
     </div>
   </section>
@@ -780,20 +860,21 @@
       <div class="project-card">
         <div class="project-num">01</div>
         <div class="project-tag-row">
-          <span class="tag active">Live</span>
+          <span class="tag green">In Progress</span>
+          <span class="tag">Python</span>
+          <span class="tag">Multi-Agent</span>
         </div>
-        <div class="project-name">ARIA — AI Fashion Commerce Assistant</div>
+        <div class="project-name">Code Review Agent - Critic Loop Architecture</div>
         <p class="project-desc">
-          Production-ready SaaS platform with multi-tenant architecture, secure API proxying, 
-          embeddable web widget for merchants, and a demo experience for prospects. 
-          Deployed on modern cloud infrastructure.
+          An intelligent code review system that eliminates noisy LLM feedback by filtering and prioritizing findings based on
+          impact and confidence. It combines static analysis with structured LLM reasoning to surface only high-signal, actionable
+          issues, delivering concise, deduplicated outputs designed for real CI/CD workflows.
         </p>
         <div class="project-links">
-          <a href="#" class="project-link">
+          <a href="https://github.com/ChuksForge/code-review-agent-public" target="_blank" class="project-link">
             <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
             GitHub
           </a>
-          <a href="https:ai-shopping-assistant-sooty.vercel.app" target="_blank" class="project-link">Live Demo ↗</a>
         </div>
       </div>
 
@@ -801,10 +882,118 @@
         <div class="project-num">02</div>
         <div class="project-tag-row">
           <span class="tag active">Shipped</span>
+          <span class="tag">Python</span>
+          <span class="tag">RAG</span>
+        </div>
+        <div class="project-name">LexisAI — Research Synthesis & Insight Agent</div>
+        <p class="project-desc">
+          A research synthesis system that turns raw sources into structured, claim-annotated reports with explicit attribution.
+          It distinguishes between sourced claims, inferences, and general knowledge while synthesizing across inputs, surfacing
+          contradictions, and ranking insights by evidential strength, delivering outputs designed for trust, clarity, and real
+          analytical use.
+        </p>
+        <div class="project-links">
+          <a href="https://github.com/ChuksForge/lexis-ai-public" target="_blank" class="project-link">
+            <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+            GitHub
+          </a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-num">03</div>
+        <div class="project-tag-row">
+          <span class="tag active">Shipped</span>
+          <span class="tag">Python</span>
+          <span class="tag">Multi-Agent</span>
+        </div>
+        <div class="project-name">Startup Analyst — VC Research Pipeline</div>
+        <p class="project-desc">
+          A multi-agent investment analysis system with seven specialised agents, live market
+          data via yfinance, and a Streamlit dashboard. Designed as a "mini hedge fund"
+          research engine for evaluating early-stage startups.
+        </p>
+        <div class="project-links">
+          <a href="https://github.com/ChuksForge/startup-analyst" target="_blank" class="project-link">
+            <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+            GitHub
+          </a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-num">04</div>
+        <div class="project-tag-row">
+          <span class="tag active">Live</span>
+          <span class="tag">FastAPI</span>
+          <span class="tag">React</span>
+        </div>
+        <div class="project-name">ARIA — AI Fashion Commerce Assistant</div>
+        <p class="project-desc">
+          Production-ready SaaS platform with multi-tenant architecture, secure API proxying,
+          embeddable web widget for merchants, and a demo experience for prospects.
+          Deployed on modern cloud infrastructure.
+        </p>
+        <div class="project-links">
+          <a href="#" class="project-link">
+            <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+            GitHub
+          </a>
+          <a href="https://ai-shopping-assistant-sooty.vercel.app" target="_blank" class="project-link">Live Demo ↗</a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-num">05</div>
+        <div class="project-tag-row">
+          <span class="tag active">Shipped</span>
+          <span class="tag">Python</span>
+          <span class="tag">Gradio</span>
+        </div>
+        <div class="project-name">Multi-Agent Autonomous Investment Analyst</div>
+        <p class="project-desc">
+          A simulated hedge fund powered by specialized AI agents that research, debate, and produce investment decisions. It
+          combines market data, news sentiment, technical signals, and fundamental analysis, with opposing agents stress-testing
+          each thesis before a final decision layer delivers a clear action, confidence level, and risk-aware strategy.
+        </p>
+        <div class="project-links">
+          <a href="https://github.com/ChuksForge/investment-analyst" target="_blank" class="project-link">
+            <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+            GitHub
+          </a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-num">06</div>
+        <div class="project-tag-row">
+          <span class="tag active">Shipped</span>
+          <span class="tag">Python</span>
+          <span class="tag">Gradio</span>
+        </div>
+        <div class="project-name">PivotPro — Career Pivot Coach</div>
+        <p class="project-desc">
+          A career pivot coaching agent featuring viability assessment, skills gap analysis,
+          and structured action plan generation — for any stage, any industry.
+        </p>
+        <div class="project-links">
+          <a href="https://github.com/ChuksForge/pivot-pro" target="_blank" class="project-link">
+            <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+            GitHub
+          </a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-num">07</div>
+        <div class="project-tag-row">
+          <span class="tag active">Shipped</span>
+          <span class="tag">Python</span>
+          <span class="tag">Gradio</span>
         </div>
         <div class="project-name">PriorityPilot — Personal Productivity Agent</div>
         <p class="project-desc">
-          A task prioritization, productivity system showcasing intelligent task orchestration, 
+          A task prioritisation and productivity system showcasing intelligent task orchestration,
           tool integration, and structured output generation.
         </p>
         <div class="project-links">
@@ -816,68 +1005,16 @@
       </div>
 
       <div class="project-card">
-        <div class="project-num">03</div>
+        <div class="project-num">08</div>
         <div class="project-tag-row">
-          <span class="tag">Planned</span>
-        </div>
-        <div class="project-name">AI Business Automation Suite</div>
-        <p class="project-desc">
-          Multi-tenant SaaS platform hosting several AI applications, including productivity assistants 
-          and multi-agent workflows. Designed for scalability, security, and observability.
-        </p>
-        <div class="project-links">
-          <a href="#" class="project-link">
-            <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
-            GitHub
-          </a>
-        </div>
-      </div>
-
-      <div class="project-card">
-        <div class="project-num">04</div>
-        <div class="project-tag-row">
-          <span class="tag active">Shipped</span>
-        </div>
-        <div class="project-name">PivotPro — Career Pivot Coach</div>
-        <p class="project-desc">
-          A career pivot coaching agent featuring viability assessment, skills gap analysis,
-           and structured action plan generation — for any stage, any industry.
-        </p>
-        <div class="project-links">
-          <a href="https://github.com/ChuksForge/pivot-pro" target="_blank" class="project-link">
-            <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
-            GitHub
-          </a>
-        </div>
-      </div>
-
-      <div class="project-card">
-        <div class="project-num">05</div>
-        <div class="project-tag-row">
-          <span class="tag active">Shipped</span>
-        </div>
-        <div class="project-name">LexisAI - Research & Insight Agent</div>
-        <p class="project-desc">
-          An AI research assistant that processes raw sources, generates annotated reports, 
-          and supports conversational follow-up analysis.
-        </p>
-        <div class="project-links">
-          <a href="https://github.com/ChuksForge/lexis-ai" target="_blank" class="project-link">
-            <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
-            GitHub
-          </a>
-        </div>
-      </div>
-
-      <div class="project-card">
-        <div class="project-num">06</div>
-        <div class="project-tag-row">
-          <span class="tag">Planned</span>
+          <span class="tag amber">Planned</span>
+          <span class="tag">Next.js</span>
+          <span class="tag">Turborepo</span>
         </div>
         <div class="project-name">AI Tools Suite</div>
         <p class="project-desc">
           Multi-application AI tools suite housing a modular content generation engine
-           and career development toolkit — built for composability, 
+          and career development toolkit — built for composability,
           developer ergonomics, and shared infrastructure across independently deployable applications.
         </p>
         <div class="project-links">
@@ -889,13 +1026,35 @@
       </div>
 
       <div class="project-card">
-        <div class="project-num">07</div>
+        <div class="project-num">09</div>
         <div class="project-tag-row">
-          <span class="tag active">In Progress</span>
+          <span class="tag amber">Planned</span>
+          <span class="tag">Next.js</span>
+          <span class="tag">Turborepo</span>
+        </div>
+        <div class="project-name">AI Business Automation Suite</div>
+        <p class="project-desc">
+          Multi-tenant SaaS platform hosting several AI applications, including productivity assistants
+          and multi-agent workflows. Designed for scalability, security, and observability.
+        </p>
+        <div class="project-links">
+          <a href="#" class="project-link">
+            <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+            GitHub
+          </a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-num">10</div>
+        <div class="project-tag-row">
+          <span class="tag green">In Progress</span>
+          <span class="tag">React</span>
+          <span class="tag">Supabase</span>
         </div>
         <div class="project-name">Trading Journal & Analytics Dashboard</div>
         <p class="project-desc">
-          Full-stack trading analytics platform offering advanced charting, multi-asset tracking, 
+          Full-stack trading analytics platform offering advanced charting, multi-asset tracking,
           and portfolio insights. Designed for professional traders.
         </p>
         <div class="project-links">
@@ -903,19 +1062,20 @@
             <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
             GitHub
           </a>
-          <a href="https://trading-journal-mocha-one.vercel.app/" class="project-link">Live Demo ↗</a>
+          <a href="https://trading-journal-mocha-one.vercel.app/" target="_blank" class="project-link">Live Demo ↗</a>
         </div>
       </div>
 
       <div class="project-card">
-        <div class="project-num">08</div>
+        <div class="project-num">11</div>
         <div class="project-tag-row">
-          <span class="tag active">In Progress</span>
+          <span class="tag green">In Progress</span>
+          <span class="tag">Chart.js</span>
         </div>
         <div class="project-name">TradeLog Pro — Trading Performance Dashboard</div>
         <p class="project-desc">
-          Interactive trading analytics dashboard with multi-asset insights, 
-          risk analysis, and exportable visualizations. Lightweight, standalone design.
+          Interactive trading analytics dashboard with multi-asset insights,
+          risk analysis, and exportable visualisations. Lightweight, standalone design.
         </p>
         <div class="project-links">
           <a href="#" class="project-link">
@@ -927,14 +1087,16 @@
       </div>
 
       <div class="project-card">
-        <div class="project-num">09</div>
+        <div class="project-num">12</div>
         <div class="project-tag-row">
           <span class="tag active">Shipped</span>
+          <span class="tag">RAG</span>
+          <span class="tag">Gradio</span>
         </div>
         <div class="project-name">AI Document Intelligence System</div>
         <p class="project-desc">
-          Capstone project from the prompt-engineering-lab: document ingestion, 
-          RAG-based QA, hallucination detection/mitigation, and LLM benchmarking. 
+          Capstone project from the prompt-engineering-lab: document ingestion,
+          RAG-based QA, hallucination detection/mitigation, and LLM benchmarking.
           Includes a Gradio demo interface.
         </p>
         <div class="project-links">
@@ -953,8 +1115,8 @@
     <div class="reveal">
       <div class="section-label">Prompt Engineering Lab</div>
       <h2 class="section-title">9 experiments.<br/>1 framework.</h2>
-      <p style="color:var(--muted); max-width:560px; margin-bottom:48px; line-height:1.8;">
-        A structured research portfolio covering the full spectrum of applied prompt engineering — 
+      <p style="color:var(--muted); max-width:560px; margin-bottom:48px; line-height:1.85;">
+        A structured research portfolio covering the full spectrum of applied prompt engineering —
         from evaluation benchmarks to hallucination mitigation.
       </p>
     </div>
@@ -1005,7 +1167,7 @@
         <div class="lab-desc">Full-stack document intelligence system tying together RAG, evaluation, and agentic routing.</div>
       </div>
     </div>
-    <div style="margin-top:32px; reveal">
+    <div style="margin-top:32px;">
       <a href="https://github.com/ChuksForge/prompt-engineering-lab" target="_blank" class="btn-ghost">
         View Full Lab on GitHub →
       </a>
@@ -1020,35 +1182,63 @@
     </div>
     <div class="reveal">
       <div class="exp-item">
-        <div class="exp-year">2025 — Present</div>
+        <div class="exp-year">2024 — Present</div>
         <div>
-          <div class="exp-role">AI Engineer & Founder — ChuksForge</div>
-          <div class="exp-desc">
-            Building a portfolio of AI-powered SaaS products. Architecting multi-tenant backends, 
-            LLM pipelines, embeddable widgets, and agentic systems. Active on GitHub under the 
-            ChuksForge brand.
+          <div class="exp-role">
+            AI Systems Engineer & Founder — ChuksForge
           </div>
+          <div class="exp-desc">
+            <p>
+              Designing and deploying production-grade AI SaaS systems with an emphasis on reliability, scalability, and
+              real-world constraints.
+            </p>
+            <ul>
+              <li>Architect multi-tenant LLM systems with user isolation, retrieval pipelines, and evaluation layers, improving
+                response consistency and system robustness</li>
+              <li>Design agentic systems, evaluation frameworks, and embeddable AI components for integration across products</li>
+              <li>Develop and launch a portfolio of production-oriented AI tools under the ChuksForge brand</li>
+            </ul>
+          </div>
+
         </div>
       </div>
       <div class="exp-item">
         <div class="exp-year">Ongoing</div>
         <div>
-          <div class="exp-role">Independent Trader — Forex & Crypto</div>
+          <div class="exp-role">
+            Systematic Trader (Independent) — Forex & Crypto
+          </div>
+          
           <div class="exp-desc">
-            Discretionary & Systematic trading across forex  and crypto markets using 
-            discretionary price action concepts. 
-            Author of custom Pine Script strategies and LLM prompt templates for market analysis.
+            <p>
+              Apply discretionary and rule-based strategies in high-noise, probabilistic environments across forex and crypto
+              markets.
+            </p>
+            <ul>
+              <li>Design and test structured trading systems under uncertainty, optimizing for risk-adjusted outcomes</li>
+              <li>Build custom Pine Script strategies and AI-assisted market analysis workflows</li>
+              <li>Transfer trading principles (signal vs noise, probabilistic thinking, risk control) into AI system design</li>
+            </ul>
           </div>
         </div>
       </div>
       <div class="exp-item">
         <div class="exp-year">2025</div>
         <div>
-          <div class="exp-role">Prompt Engineering Research — 9-Project Lab</div>
+          <div class="exp-role">
+            Prompt Engineering Research — 9-Project Lab
+          </div>
           <div class="exp-desc">
-            Built the prompt-engineering-lab: a structured, documented research portfolio covering 
-            summarization, style transfer, RAG, hallucination mitigation, and benchmarking. 
-            Produced cross-project shared utilities and a prompt strategy index.
+            <p>
+              Executed a structured research initiative exploring LLM behavior, reliability, and system integration patterns.
+            </p>
+          
+            <ul>
+              <li>Built a multi-project prompt engineering lab covering summarization, style transfer, RAG, and hallucination
+                mitigation</li>
+              <li>Developed reusable evaluation patterns, prompt frameworks, and shared utilities</li>
+              <li>Emphasized reproducibility, benchmarking, and production-oriented integration</li>
+            </ul>
           </div>
         </div>
       </div>
@@ -1062,11 +1252,12 @@
       <p class="contact-eyebrow">↳ Let's work together</p>
       <h2 class="contact-title">Ready to<br/>build something?</h2>
       <p class="contact-sub">
-        I'm open to freelance projects, consulting engagements, and full-time AI engineering roles. 
+        I'm open to freelance projects, consulting engagements, and full-time AI system engineering roles.
         Let's talk.
       </p>
       <div class="contact-links">
         <a href="mailto:chuksprompts@gmail.com" class="contact-link">✉ Email Me</a>
+        <a href="https://t.me/ChuksForge" target="_blank" class="contact-link"> Telegram </a>
         <a href="https://github.com/ChuksForge" target="_blank" class="contact-link">⌥ GitHub</a>
         <a href="https://x.com/ChuksForge" target="_blank" class="contact-link">↗ Twitter / X</a>
       </div>
@@ -1080,7 +1271,7 @@
   <footer>
     <div>© 2026 ChuksForge. Built with intent.</div>
     <div style="font-size:10px; letter-spacing:0.1em; text-transform:uppercase;">
-      AI Systems Engineer · LLM Prompts Architect · Builder
+      AI Systems Engineer · LLM Reliability Specialist · Builder
     </div>
   </footer>
 
@@ -1091,15 +1282,15 @@
     let mx = 0, my = 0, rx = 0, ry = 0;
     document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
     (function animate() {
-      cursor.style.transform = `translate(${mx - 6}px, ${my - 6}px)`;
+      cursor.style.transform = `translate(${mx - 5}px, ${my - 5}px)`;
       rx += (mx - rx) * 0.12;
       ry += (my - ry) * 0.12;
-      ring.style.transform = `translate(${rx - 18}px, ${ry - 18}px)`;
+      ring.style.transform = `translate(${rx - 16}px, ${ry - 16}px)`;
       requestAnimationFrame(animate);
     })();
     document.querySelectorAll('a, button').forEach(el => {
-      el.addEventListener('mouseenter', () => { cursor.style.transform += ' scale(1.8)'; ring.style.transform += ' scale(1.5)'; ring.style.opacity = '0.8'; });
-      el.addEventListener('mouseleave', () => { ring.style.opacity = '0.5'; });
+      el.addEventListener('mouseenter', () => { ring.style.transform += ' scale(1.6)'; ring.style.opacity = '0.9'; ring.style.borderColor = 'rgba(245,158,11,0.7)'; });
+      el.addEventListener('mouseleave', () => { ring.style.opacity = '1'; ring.style.borderColor = 'rgba(59,139,255,0.5)'; });
     });
 
     // Nav scroll
@@ -1117,7 +1308,7 @@
           obs.unobserve(e.target);
         }
       });
-    }, { threshold: 0.1 });
+    }, { threshold: 0.08 });
     reveals.forEach(el => obs.observe(el));
   </script>
 </body>
