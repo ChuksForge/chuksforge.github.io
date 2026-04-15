@@ -61,7 +61,6 @@
       transition: all 0.25s ease;
     }
 
-    /* Deep space noise overlay */
     body::before {
       content: '';
       position: fixed;
@@ -72,7 +71,6 @@
       opacity: 0.25;
     }
 
-    /* Subtle bg gradient */
     body::after {
       content: '';
       position: fixed;
@@ -84,7 +82,7 @@
       z-index: 0;
     }
 
-    /* NAV */
+    /* ─── NAV ─── */
     nav {
       position: fixed;
       top: 0; left: 0; right: 0;
@@ -108,8 +106,13 @@
       letter-spacing: -0.5px;
       color: var(--accent);
       text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
     .nav-logo span { color: var(--text); }
+    .nav-logo img { display: block; }
+
     .nav-links { display: flex; gap: 36px; list-style: none; }
     .nav-links a {
       color: var(--muted);
@@ -120,6 +123,7 @@
       transition: color 0.2s;
     }
     .nav-links a:hover { color: var(--accent); }
+
     .nav-cta {
       background: var(--accent);
       color: #fff;
@@ -131,10 +135,85 @@
       text-decoration: none;
       transition: all 0.2s;
       box-shadow: 0 0 20px rgba(59,139,255,0.3);
+      white-space: nowrap;
     }
     .nav-cta:hover { background: #5da0ff; box-shadow: 0 0 28px rgba(59,139,255,0.5); }
 
-    /* HERO */
+    /* Hamburger button — hidden on desktop */
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      width: 36px;
+      height: 36px;
+      padding: 6px;
+      background: none;
+      border: 1px solid var(--border2);
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+    .nav-hamburger span {
+      display: block;
+      width: 100%;
+      height: 1px;
+      background: var(--text);
+      transition: all 0.3s ease;
+      transform-origin: center;
+    }
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+    /* Mobile drawer */
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      background: rgba(8,12,20,0.98);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      z-index: 499;
+      padding: 80px 24px 32px;
+      flex-direction: column;
+      gap: 4px;
+      transform: translateY(-100%);
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .mobile-menu.open {
+      transform: translateY(0);
+    }
+    .mobile-menu a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 13px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: color 0.2s;
+    }
+    .mobile-menu a:last-of-type { border-bottom: none; }
+    .mobile-menu a:hover { color: var(--accent); }
+    .mobile-menu a::after { content: '→'; font-size: 11px; color: var(--muted2); }
+    .mobile-menu .mobile-cta {
+      margin-top: 20px;
+      background: var(--accent);
+      color: #fff;
+      padding: 14px 24px;
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: 0.05em;
+      text-align: center;
+      border-bottom: none !important;
+    }
+    .mobile-menu .mobile-cta::after { display: none; }
+
+    /* ─── HERO ─── */
     #hero {
       min-height: 100vh;
       display: flex;
@@ -157,7 +236,6 @@
       mask-image: radial-gradient(ellipse 80% 80% at 15% 50%, black 20%, transparent 75%);
     }
 
-    /* Horizon line glow */
     .hero-horizon {
       position: absolute;
       left: 0; right: 0;
@@ -311,7 +389,6 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* SCROLL INDICATOR */
     .scroll-hint {
       position: absolute;
       bottom: 32px;
@@ -343,7 +420,7 @@
     }
     @keyframes scanLine { to { left: 100%; } }
 
-    /* SECTION COMMON */
+    /* ─── SECTIONS ─── */
     section { padding: 100px 48px; position: relative; z-index: 1; }
 
     .section-label {
@@ -505,21 +582,9 @@
       border: 1px solid var(--border2);
       color: var(--muted);
     }
-    .tag.active {
-      border-color: rgba(59,139,255,0.35);
-      color: var(--accent);
-      background: rgba(59,139,255,0.06);
-    }
-    .tag.amber {
-      border-color: rgba(245,158,11,0.35);
-      color: var(--accent2);
-      background: rgba(245,158,11,0.06);
-    }
-    .tag.green {
-      border-color: rgba(16,217,160,0.35);
-      color: var(--accent3);
-      background: rgba(16,217,160,0.06);
-    }
+    .tag.active { border-color: rgba(59,139,255,0.35); color: var(--accent); background: rgba(59,139,255,0.06); }
+    .tag.amber { border-color: rgba(245,158,11,0.35); color: var(--accent2); background: rgba(245,158,11,0.06); }
+    .tag.green { border-color: rgba(16,217,160,0.35); color: var(--accent3); background: rgba(16,217,160,0.06); }
 
     .project-name {
       font-family: 'Syne', sans-serif;
@@ -604,10 +669,9 @@
       margin-bottom: 8px;
       letter-spacing: -0.3px;
     }
-    .exp-desc { color: var(--muted); line-height: 1.85; font-size: 13px; 
-    ul {margin-top: 10px; padding-left: 20px;};
-    li {margin-bottom: 8px;};
-    }
+    .exp-desc { color: var(--muted); line-height: 1.85; font-size: 13px; }
+    .exp-desc ul { margin-top: 10px; padding-left: 20px; }
+    .exp-desc li { margin-bottom: 8px; }
 
     /* CONTACT */
     #contact {
@@ -687,18 +751,43 @@
     }
     .reveal.visible { opacity: 1; transform: none; }
 
-    /* MOBILE */
+    /* ─── MOBILE ─── */
     @media (max-width: 768px) {
-      nav { padding: 16px 20px; }
+      /* Nav */
+      nav { padding: 14px 20px; flex-wrap: nowrap; }
       .nav-links { display: none; }
+      .nav-cta { display: none; }
+      .nav-hamburger { display: flex; }
+      .mobile-menu { display: flex; }
+
+      /* Sections */
       section { padding: 60px 20px; }
       #hero { padding: 0 20px; }
+      .scroll-hint { left: 20px; }
+
+      /* About */
       #about { grid-template-columns: 1fr; gap: 40px; }
       .about-right { padding-top: 0; }
+      .capability-grid { grid-template-columns: 1fr; }
+
+      /* Hero */
       .hero-stats { gap: 24px; flex-wrap: wrap; }
+
+      /* Projects */
+      .projects-grid { grid-template-columns: 1fr; }
+      .project-card { padding: 24px; }
+
+      /* Prompt lab */
+      .promptlab-grid { grid-template-columns: 1fr; }
+
+      /* Experience */
       .exp-item { grid-template-columns: 1fr; gap: 8px; }
-      footer { flex-direction: column; gap: 8px; text-align: center; }
+
+      /* Contact */
       .contact-links { flex-direction: column; align-items: center; }
+
+      /* Footer */
+      footer { flex-direction: column; gap: 8px; text-align: center; padding: 20px; }
     }
   </style>
 </head>
@@ -706,6 +795,15 @@
 
   <div class="cursor" id="cursor"></div>
   <div class="cursor-ring" id="cursorRing"></div>
+
+  <!-- Mobile drawer -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#about" onclick="closeMobileMenu()">About</a>
+    <a href="#projects" onclick="closeMobileMenu()">Projects</a>
+    <a href="#promptlab" onclick="closeMobileMenu()">Prompt Lab</a>
+    <a href="#contact" onclick="closeMobileMenu()">Contact</a>
+    <a href="mailto:chuksprompts@gmail.com" class="mobile-cta" onclick="closeMobileMenu()">Hire Me →</a>
+  </div>
 
   <!-- Nav -->
   <nav id="navbar">
@@ -717,6 +815,11 @@
       <li><a href="#contact">Contact</a></li>
     </ul>
     <a href="mailto:chuksprompts@gmail.com" class="nav-cta">Hire Me →</a>
+    <button class="nav-hamburger" id="hamburger" aria-label="Toggle menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
   </nav>
 
   <!-- Hero -->
@@ -818,19 +921,19 @@
       <div class="section-label">About Me</div>
       <h2 class="section-title">Engineer.<br/>Trader.<br/>Builder.</h2>
       <p class="about-body">
-        I'm <strong>Christian Chuks (ChuksForge)</strong> — an AI Systems Engineer focused on designing and 
+        I'm <strong>Christian Chuks (ChuksForge)</strong> — an AI Systems Engineer focused on designing and
         deploying production-grade systems. I develop end-to-end LLM-powered
         applications, from evaluation pipelines to multi-tenant SaaS backends, with an emphasis on performance, scalability, and
         real-world usability.
       </p>
       <p class="about-body">
-        My background in <strong>systematic trading</strong>, spanning price action, forex and crypto, 
+        My background in <strong>systematic trading</strong>, spanning price action, forex and crypto,
         shapes how I approach AI: prioritizing signal over noise, building for robustness under uncertainty, and relying on data-driven
         decision making.
       </p>
       <p class="about-body">
-      Currently building <strong>ARIA</strong>, an AI-powered fashion commerce assistant, alongside a trading analytics platform,
-      while developing a portfolio of scalable AI SaaS products.
+        Currently building <strong>ARIA</strong>, an AI-powered fashion commerce assistant, alongside a trading analytics platform,
+        while developing a portfolio of scalable AI SaaS products.
       </p>
     </div>
     <div class="about-right reveal">
@@ -865,7 +968,7 @@
       <div class="project-card">
         <div class="project-num">01</div>
         <div class="project-tag-row">
-          <span class="tag green">In Progress</span>
+          <span class="tag active">Shipped</span>
           <span class="tag">Python</span>
           <span class="tag">Multi-Agent</span>
         </div>
@@ -894,8 +997,7 @@
         <p class="project-desc">
           A research synthesis system that turns raw sources into structured, claim-annotated reports with explicit attribution.
           It distinguishes between sourced claims, inferences, and general knowledge while synthesizing across inputs, surfacing
-          contradictions, and ranking insights by evidential strength, delivering outputs designed for trust, clarity, and real
-          analytical use.
+          contradictions, and ranking insights by evidential strength.
         </p>
         <div class="project-links">
           <a href="https://github.com/ChuksForge/lexis-ai-public" target="_blank" class="project-link">
@@ -1189,36 +1291,23 @@
       <div class="exp-item">
         <div class="exp-year">2024 — Present</div>
         <div>
-          <div class="exp-role">
-            AI Systems Engineer & Founder — ChuksForge
-          </div>
+          <div class="exp-role">AI Systems Engineer & Founder — ChuksForge</div>
           <div class="exp-desc">
-            <p>
-              Designing and deploying production-grade AI SaaS systems with an emphasis on reliability, scalability, and
-              real-world constraints.
-            </p>
+            <p>Designing and deploying production-grade AI SaaS systems with an emphasis on reliability, scalability, and real-world constraints.</p>
             <ul>
-              <li>Architect multi-tenant LLM systems with user isolation, retrieval pipelines, and evaluation layers, improving
-                response consistency and system robustness</li>
+              <li>Architect multi-tenant LLM systems with user isolation, retrieval pipelines, and evaluation layers, improving response consistency and system robustness</li>
               <li>Design agentic systems, evaluation frameworks, and embeddable AI components for integration across products</li>
               <li>Develop and launch a portfolio of production-oriented AI tools under the ChuksForge brand</li>
             </ul>
           </div>
-
         </div>
       </div>
       <div class="exp-item">
         <div class="exp-year">Ongoing</div>
         <div>
-          <div class="exp-role">
-            Systematic Trader (Independent) — Forex & Crypto
-          </div>
-          
+          <div class="exp-role">Systematic Trader (Independent) — Forex & Crypto</div>
           <div class="exp-desc">
-            <p>
-              Apply discretionary and rule-based strategies in high-noise, probabilistic environments across forex and crypto
-              markets.
-            </p>
+            <p>Apply discretionary and rule-based strategies in high-noise, probabilistic environments across forex and crypto markets.</p>
             <ul>
               <li>Design and test structured trading systems under uncertainty, optimizing for risk-adjusted outcomes</li>
               <li>Build custom Pine Script strategies and AI-assisted market analysis workflows</li>
@@ -1230,17 +1319,11 @@
       <div class="exp-item">
         <div class="exp-year">2025</div>
         <div>
-          <div class="exp-role">
-            Prompt Engineering Research — 9-Project Lab
-          </div>
+          <div class="exp-role">Prompt Engineering Research — 9-Project Lab</div>
           <div class="exp-desc">
-            <p>
-              Executed a structured research initiative exploring LLM behavior, reliability, and system integration patterns.
-            </p>
-          
+            <p>Executed a structured research initiative exploring LLM behavior, reliability, and system integration patterns.</p>
             <ul>
-              <li>Built a multi-project prompt engineering lab covering summarization, style transfer, RAG, and hallucination
-                mitigation</li>
+              <li>Built a multi-project prompt engineering lab covering summarization, style transfer, RAG, and hallucination mitigation</li>
               <li>Developed reusable evaluation patterns, prompt frameworks, and shared utilities</li>
               <li>Emphasized reproducibility, benchmarking, and production-oriented integration</li>
             </ul>
@@ -1262,7 +1345,7 @@
       </p>
       <div class="contact-links">
         <a href="mailto:chuksprompts@gmail.com" class="contact-link">✉ Email Me</a>
-        <a href="https://t.me/ChuksForge" target="_blank" class="contact-link"> Telegram </a>
+        <a href="https://t.me/ChuksForge" target="_blank" class="contact-link"> Telegram</a>
         <a href="https://github.com/ChuksForge" target="_blank" class="contact-link">⌥ GitHub</a>
         <a href="https://x.com/ChuksForge" target="_blank" class="contact-link">↗ Twitter / X</a>
       </div>
@@ -1294,7 +1377,7 @@
       requestAnimationFrame(animate);
     })();
     document.querySelectorAll('a, button').forEach(el => {
-      el.addEventListener('mouseenter', () => { ring.style.transform += ' scale(1.6)'; ring.style.opacity = '0.9'; ring.style.borderColor = 'rgba(245,158,11,0.7)'; });
+      el.addEventListener('mouseenter', () => { ring.style.opacity = '0.9'; ring.style.borderColor = 'rgba(245,158,11,0.7)'; });
       el.addEventListener('mouseleave', () => { ring.style.opacity = '1'; ring.style.borderColor = 'rgba(59,139,255,0.5)'; });
     });
 
@@ -1302,6 +1385,26 @@
     const nav = document.getElementById('navbar');
     window.addEventListener('scroll', () => {
       nav.classList.toggle('scrolled', window.scrollY > 20);
+    });
+
+    // Hamburger
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    hamburger.addEventListener('click', () => {
+      const isOpen = hamburger.classList.toggle('open');
+      mobileMenu.classList.toggle('open', isOpen);
+      document.body.style.overflow = isOpen ? 'hidden' : '';
+    });
+    function closeMobileMenu() {
+      hamburger.classList.remove('open');
+      mobileMenu.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    // Close on outside click
+    document.addEventListener('click', e => {
+      if (mobileMenu.classList.contains('open') && !nav.contains(e.target) && !mobileMenu.contains(e.target)) {
+        closeMobileMenu();
+      }
     });
 
     // Scroll reveal
