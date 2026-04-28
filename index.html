@@ -957,7 +957,7 @@
     <a href="#projects" onclick="closeMobileMenu()">Projects</a>
     <a href="#promptlab" onclick="closeMobileMenu()">Prompt Lab</a>
     <a href="#contact" onclick="closeMobileMenu()">Contact</a>
-    <a href="mailto:chuksprompts@gmail.com" class="mobile-cta" onclick="closeMobileMenu()">Hire Me →</a>
+    <a href="mailto:chuksforge@gmail.com" class="mobile-cta" onclick="closeMobileMenu()">Work With Us →</a>
   </div>
 
   <!-- Nav -->
@@ -969,7 +969,7 @@
       <li><a href="#promptlab">Prompt Lab</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
-    <a href="mailto:chuksprompts@gmail.com" class="nav-cta">Hire Me →</a>
+    <a href="mailto:chuksforge@gmail.com" class="nav-cta">Work With Us →</a>
     <button class="nav-hamburger" id="hamburger" aria-label="Toggle menu">
       <span></span>
       <span></span>
@@ -984,7 +984,7 @@
     <div class="hero-glow"></div>
     <div class="hero-glow2"></div>
     <div class="hero-content">
-      <div class="hero-tag">Available for freelance & full-time roles</div>
+      <div class="hero-tag">Available for consulting, freelance & select full-time opportunities</div>
       <h1 class="hero-name">
         Chuks<br/>
         <em>Forge</em>
@@ -1216,11 +1216,104 @@
         </div>
       </div>
 
-
-      <!-- 02 Startup Analyst -->
+      <!-- 02  Research Synthesis Agent -->
       <div class="project-card">
         <div class="project-header" onclick="toggleProject(this)">
           <div class="project-num">02</div>
+          <div class="project-header-main">
+            <div class="project-tag-row">
+              <span class="tag active">Shipped</span>
+              <span class="tag">Python</span>
+              <span class="tag">LangGraph</span>
+              <span class="tag">RAG</span>
+            </div>
+            <div class="project-name">Research Synthesis Agent — Multi-Source Intelligence Pipeline</div>
+            <div class="project-tagline">Autonomous agent that researches, retrieves, evaluates, and synthesises multi-source
+              findings into structured reports.</div>
+          </div>
+          <div class="project-toggle">+</div>
+        </div>
+        <div class="project-body">
+          <div class="proj-section">
+            <div class="proj-section-label">Overview</div>
+            <p class="proj-text">Built a LangGraph-powered research agent that goes beyond standard RAG by combining live web
+              search with vector-backed document retrieval, then running both through an evaluation layer before synthesis.
+              The agent plans its own research strategy, identifies gaps in retrieved evidence, and iterates until it reaches
+              a confidence threshold. Producing reports grounded in both real-time and stored knowledge.</p>
+          </div>
+          <div class="proj-section">
+            <div class="proj-section-label">Key Contributions</div>
+            <ul class="proj-list">
+              <li>Designed the full LangGraph agent graph: Research Planner → Web Search → RAG Retrieval → Evidence Evaluator
+                → Synthesiser</li>
+              <li>Integrated Tavily search for live web retrieval alongside ChromaDB for persistent vector storage</li>
+              <li>Built an evidence evaluation node that scores retrieved content for relevance, recency, and credibility
+                before passing to synthesis</li>
+              <li>Implemented a 25-question evaluation harness to benchmark output quality, citation accuracy, and
+                hallucination rate</li>
+              <li>Shipped a Streamlit UI for interactive research sessions with source attribution display</li>
+            </ul>
+          </div>
+          <div class="proj-section">
+            <div class="proj-section-label">How It Works</div>
+            <div class="proj-flow">
+              <div class="flow-step">
+                <div class="flow-node">Planner scopes query</div>
+                <div class="flow-arrow">→</div>
+              </div>
+              <div class="flow-step">
+                <div class="flow-node">Web search + RAG retrieval</div>
+                <div class="flow-arrow">→</div>
+              </div>
+              <div class="flow-step">
+                <div class="flow-node">Evidence evaluator scores sources</div>
+                <div class="flow-arrow">→</div>
+              </div>
+              <div class="flow-step">
+                <div class="flow-node">Gap check, iterate if needed</div>
+                <div class="flow-arrow">→</div>
+              </div>
+              <div class="flow-step">
+                <div class="flow-node">Synthesiser produces report</div>
+              </div>
+            </div>
+          </div>
+          <div class="proj-section">
+            <div class="proj-section-label">Impact</div>
+            <div class="proj-impact-row">
+              <div class="impact-chip">25-question eval harness</div>
+              <div class="impact-chip">Live + stored knowledge retrieval</div>
+              <div class="impact-chip">Self-directed gap detection</div>
+              <div class="impact-chip">Citation-accurate outputs</div>
+            </div>
+          </div>
+          <div class="proj-section">
+            <div class="proj-section-label">Tech Stack</div>
+            <div class="proj-stack">
+              <span class="stack-pill">Python</span>
+              <span class="stack-pill">LangGraph</span>
+              <span class="stack-pill">Tavily Search</span>
+              <span class="stack-pill">ChromaDB</span>
+              <span class="stack-pill">RAG Pipeline</span>
+              <span class="stack-pill">Streamlit</span>
+            </div>
+          </div>
+          <div class="project-links">
+            <a href="#" target="_blank" class="project-link">
+              <svg viewBox="0 0 16 16" fill="currentColor">
+                <path
+                  d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z" />
+              </svg>
+              GitHub
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 03 Startup Analyst -->
+      <div class="project-card">
+        <div class="project-header" onclick="toggleProject(this)">
+          <div class="project-num">03</div>
           <div class="project-header-main">
             <div class="project-tag-row">
               <span class="tag active">Shipped</span>
@@ -1304,10 +1397,10 @@
         </div>
       </div>
 
-      <!-- 03 LexisAI -->
+      <!-- 04 LexisAI -->
       <div class="project-card">
         <div class="project-header" onclick="toggleProject(this)">
-          <div class="project-num">03</div>
+          <div class="project-num">04</div>
           <div class="project-header-main">
             <div class="project-tag-row">
               <span class="tag active">Shipped</span>
@@ -1397,10 +1490,10 @@
         </div>
       </div>
 
-      <!-- 04 Investment Analyst -->
+      <!-- 05 Investment Analyst -->
       <div class="project-card">
         <div class="project-header" onclick="toggleProject(this)">
-          <div class="project-num">04</div>
+          <div class="project-num">05</div>
           <div class="project-header-main">
             <div class="project-tag-row">
               <span class="tag active">Shipped</span>
@@ -1454,10 +1547,10 @@
         </div>
       </div>
 
-      <!-- 05 ARIA -->
+      <!-- 06 ARIA -->
       <div class="project-card">
         <div class="project-header" onclick="toggleProject(this)">
-          <div class="project-num">05</div>
+          <div class="project-num">06</div>
           <div class="project-header-main">
             <div class="project-tag-row">
               <span class="tag active">Live</span>
@@ -1516,10 +1609,10 @@
         </div>
       </div>
 
-      <!-- 06 AI Business Suite -->
+      <!-- 07 AI Business Suite -->
       <div class="project-card">
         <div class="project-header" onclick="toggleProject(this)">
-          <div class="project-num">06</div>
+          <div class="project-num">07</div>
           <div class="project-header-main">
             <div class="project-tag-row">
               <span class="tag amber">Planned</span>
@@ -1601,10 +1694,10 @@
         </div>
       </div>
 
-      <!-- 07 PivotPro -->
+      <!-- 08 PivotPro -->
       <div class="project-card">
         <div class="project-header" onclick="toggleProject(this)">
-          <div class="project-num">07</div>
+          <div class="project-num">08</div>
           <div class="project-header-main">
             <div class="project-tag-row">
               <span class="tag active">Shipped</span>
@@ -1649,10 +1742,10 @@
         </div>
       </div>
 
-      <!-- 08 PriorityPilot -->
+      <!-- 09 PriorityPilot -->
       <div class="project-card">
         <div class="project-header" onclick="toggleProject(this)">
-          <div class="project-num">08</div>
+          <div class="project-num">09</div>
           <div class="project-header-main">
             <div class="project-tag-row">
               <span class="tag active">Shipped</span>
@@ -1697,10 +1790,10 @@
         </div>
       </div>
 
-      <!-- 09 AI Tools Suite -->
+      <!-- 10 AI Tools Suite -->
       <div class="project-card">
         <div class="project-header" onclick="toggleProject(this)">
-          <div class="project-num">09</div>
+          <div class="project-num">10</div>
           <div class="project-header-main">
             <div class="project-tag-row">
               <span class="tag amber">Planned</span>
@@ -1748,10 +1841,10 @@
         </div>
       </div>
 
-      <!-- 10 Trading Journal -->
+      <!-- 11 Trading Journal -->
       <div class="project-card">
         <div class="project-header" onclick="toggleProject(this)">
-          <div class="project-num">10</div>
+          <div class="project-num">11</div>
           <div class="project-header-main">
             <div class="project-tag-row">
               <span class="tag green">In Progress</span>
@@ -1799,10 +1892,10 @@
         </div>
       </div>
 
-      <!-- 11 AI Document Intelligence -->
+      <!-- 12 AI Document Intelligence -->
       <div class="project-card">
         <div class="project-header" onclick="toggleProject(this)">
-          <div class="project-num">11</div>
+          <div class="project-num">12</div>
           <div class="project-header-main">
             <div class="project-tag-row">
               <span class="tag active">Shipped</span>
@@ -1938,13 +2031,19 @@
       <div class="exp-item">
         <div class="exp-year">2024 — Present</div>
         <div>
-          <div class="exp-role">AI Systems Engineer & Founder — ChuksForge</div>
+          <div class="exp-role">Founder and Principal Engineer — ChuksForge AI Solutions Ltd.</div>
           <div class="exp-desc">
-            <p>Designing and deploying production-grade AI SaaS systems with an emphasis on reliability, scalability, and real-world constraints.</p>
+            <p>
+              Founded and lead a registered AI engineering consultancy delivering production-grade LLM systems, multi-agent
+              architectures, and AI SaaS platforms for startups and growth-stage companies. Operating at the intersection of applied
+              AI research and scalable product engineering, with a focus on reliability, scalability, and real-world deployment
+              constraints.
+            </p>
             <ul>
-              <li>Architect multi-tenant LLM systems with user isolation, retrieval pipelines, and evaluation layers, improving response consistency and system robustness</li>
-              <li>Design agentic systems, evaluation frameworks, and embeddable AI components for integration across products</li>
-              <li>Develop and launch a portfolio of production-oriented AI tools under the ChuksForge brand</li>
+              <li>Architect and deploy multi-tenant LLM systems with secure user isolation, retrieval pipelines, and evaluation frameworks, improving system robustness and response consistency</li>
+              <li>Design agentic infrastructures, embeddable AI components, and production-ready SaaS solutions for diverse product integrations</li>
+              <li>Build and launch a portfolio of scalable AI tools under the ChuksForge brand, translating advanced AI capabilities into commercially viable products</li>
+              <li>Deliver end-to-end AI systems engineering, from research-driven architecture design to deployment, optimization, and long-term operational resilience</li>
             </ul>
           </div>
         </div>
@@ -1991,12 +2090,12 @@
         Let's talk.
       </p>
       <div class="contact-links">
-        <a href="mailto:chuksprompts@gmail.com" class="contact-link">✉ Email Me</a>
+        <a href="mailto:chuksforge@gmail.com" class="contact-link">✉ Email Me</a>
         <a href="https://t.me/ChuksForge" target="_blank" class="contact-link"> Telegram</a>
         <a href="https://github.com/ChuksForge" target="_blank" class="contact-link">⌥ GitHub</a>
         <a href="https://x.com/ChuksForge" target="_blank" class="contact-link">↗ Twitter / X</a>
       </div>
-      <a href="mailto:chuksprompts@gmail.com" class="btn-primary" style="font-size:15px; padding:18px 40px;">
+      <a href="mailto:chuksforge@gmail.com" class="btn-primary" style="font-size:15px; padding:18px 40px;">
         Get In Touch →
       </a>
     </div>
