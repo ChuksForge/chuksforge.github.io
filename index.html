@@ -64,7 +64,7 @@
     --card:#FBFAF6;
     --ink:#17170F;
     --ink-soft:#54544A;
-    /* darkened from #8B8A7E so small labels pass WCAG AA (4.5:1) on both paper tones */
+    /* darkened so small labels pass WCAG AA (4.5:1) on both paper tones */
     --ink-faint:#64635A;
     --line:#D8D6C8;
     --line-strong:#C6C3B2;
@@ -96,6 +96,7 @@
     font-family:'Fraunces', serif;
     font-weight:500;
     letter-spacing:-0.01em;
+    line-height:1.2;
     margin:0;
   }
 
@@ -146,15 +147,10 @@
   .nav-toggle span{display:block; width:22px; height:2px; background:var(--ink); margin:3px 0;}
 
   /* ---------- Hero ---------- */
-  #hero{padding:96px 0 64px;}
+  #hero{padding:96px 0 72px;}
   .hero-grid{display:grid; grid-template-columns:1.3fr 0.8fr; gap:64px; align-items:center;}
   .hero-text{max-width:600px;}
-
-  /* ---------- Images ---------- */
   .portrait{aspect-ratio:4/5; width:100%; height:auto; object-fit:cover; border-radius:3px; background:var(--paper-2);}
-  .cover{aspect-ratio:16/9; width:100%; height:auto; object-fit:cover; border-radius:2px; margin-bottom:20px; background:var(--paper-2);}
-  .about-photo{aspect-ratio:5/4; width:100%; height:auto; object-fit:cover; border-radius:3px; margin-top:32px; background:var(--paper-2);}
-
   .status-line{
     display:flex; align-items:flex-start; gap:10px;
     font-family:'IBM Plex Mono', monospace; font-size:12.5px; line-height:1.5; color:var(--ink-soft);
@@ -187,28 +183,6 @@
   .btn-ghost{border:1px solid var(--line-strong); color:var(--ink); transition:border-color .15s, background .15s;}
   .btn-ghost:hover{border-color:var(--ink); background:var(--card);}
 
-  /* ---------- Proof strip ---------- */
-  #proof{padding:0; border-top:1px solid var(--line); border-bottom:1px solid var(--line); background:var(--paper-2);}
-  .proof-grid{display:grid; grid-template-columns:repeat(3,1fr);}
-  .proof-item{
-    display:flex; flex-direction:column; gap:6px;
-    padding:28px 40px; border-left:1px solid var(--line);
-    transition:background .15s;
-  }
-  .proof-item:first-child{border-left:none;}
-  .proof-item:hover{background:var(--card);}
-  .proof-label{
-    display:flex; align-items:center; gap:8px;
-    font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--ink-faint);
-    text-transform:uppercase; letter-spacing:.06em;
-  }
-  .proof-label .status-dot{margin-top:0;}
-  .proof-name{font-family:'Fraunces', serif; font-size:22px; font-weight:600; margin-top:4px;}
-  .proof-status{font-size:14px; color:var(--ink-soft);}
-  .proof-metric{font-size:14px; font-weight:600; color:var(--accent); margin-top:6px;}
-  .proof-more{font-size:13px; color:var(--ink-soft); border-bottom:1px solid var(--line-strong); width:fit-content; margin-top:8px; padding-bottom:1px;}
-  .proof-item:hover .proof-more{border-color:var(--ink); color:var(--ink);}
-
   /* ---------- Section shell ---------- */
   section{padding:96px 0;}
   .section-label{
@@ -216,112 +190,158 @@
     letter-spacing:.04em; margin-bottom:14px;
   }
   .section-title{font-size:clamp(30px,3.6vw,44px); margin-bottom:20px;}
+  .section-intro{color:var(--ink-soft); max-width:560px; font-size:15px; margin-bottom:48px;}
 
-  /* ---------- About ---------- */
-  #about{border-top:1px solid var(--line);}
-  .about-grid{display:grid; grid-template-columns:1.1fr 0.9fr; gap:80px;}
-  .about-body{font-size:16px; line-height:1.8; color:var(--ink-soft); margin-bottom:18px; max-width:62ch;}
-  .about-body strong{color:var(--ink); font-weight:600;}
-  .cap-group-title{font-size:13px; color:var(--ink-faint); margin-bottom:14px; font-family:'IBM Plex Mono', monospace;}
-  .cap-list li{
-    padding:14px 0; border-top:1px solid var(--line);
-    display:flex; justify-content:space-between; align-items:baseline; gap:16px;
-    font-size:14.5px;
-  }
-  .cap-list li:last-child{border-bottom:1px solid var(--line);}
-  .cap-name{font-weight:600;}
-  .cap-desc{color:var(--ink-soft); text-align:right; font-size:13.5px;}
+  /* ---------- Featured work ---------- */
+  #projects{border-top:1px solid var(--line); border-bottom:1px solid var(--line); background:var(--paper-2);}
+  #projects .section-intro{margin-bottom:40px;}
+  .project-card{border-top:1px solid var(--line-strong);}
+  .project-card:last-child{border-bottom:1px solid var(--line-strong);}
 
-  /* ---------- Stack ---------- */
-  #stack{border-top:1px solid var(--line); background:var(--paper-2);}
-  .stack-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:48px;}
-  .stack-col-title{font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--ink-faint); margin-bottom:16px; text-transform:uppercase; letter-spacing:.05em;}
-  .stack-items{display:flex; flex-wrap:wrap; gap:8px;}
-  .stack-items li{
-    font-size:14px; padding:6px 12px; border:1px solid var(--line-strong); border-radius:2px;
-    color:var(--ink-soft); background:var(--card);
+  /* Face of the card: product image + result at a glance. Always visible. */
+  .project-face{
+    display:grid; grid-template-columns:minmax(0,5fr) minmax(0,6fr); gap:48px;
+    padding:40px 0 28px; align-items:start;
   }
-  .stack-items li.core{color:var(--ink); font-weight:600;}
-
-  /* ---------- Projects ---------- */
-  #projects{border-top:1px solid var(--line);}
-  .section-intro{color:var(--ink-soft); max-width:560px; font-size:15px; margin-bottom:44px;}
-  .project-card{border-top:1px solid var(--line);}
-  .project-card:last-child{border-bottom:1px solid var(--line);}
-  .project-heading{font-size:inherit; font-family:inherit; font-weight:inherit; letter-spacing:0;}
-  .project-header{
-    display:flex; align-items:flex-start; gap:24px; width:100%;
-    padding:28px 0; cursor:pointer; text-align:left;
-    background:none; border:none;
+  .cover{
+    aspect-ratio:16/9; width:100%; height:auto; object-fit:cover; border-radius:3px;
+    background:var(--paper); border:1px solid var(--line-strong);
   }
-  .project-header-main{flex:1; display:block;}
-  .tag-row{display:flex; gap:8px; flex-wrap:wrap; margin-bottom:12px;}
+  .tag-row{display:flex; gap:8px; flex-wrap:wrap; margin-bottom:14px;}
   .tag{
     font-family:'IBM Plex Mono', monospace; font-size:12px; padding:3px 10px;
     border-radius:20px; letter-spacing:.02em;
     background:var(--accent-soft); color:var(--accent);
   }
-  .tag.ember{background:var(--ember-soft); color:var(--ember);}
-  .tag.neutral{background:var(--paper-2); color:var(--ink-soft);}
-  .project-name{display:block; font-size:20px; font-weight:600; font-family:'Fraunces', serif; margin-bottom:6px;}
-  .project-tagline{display:block; color:var(--ink-soft); font-size:14.5px; max-width:640px;}
-  .project-result{display:block; margin-top:10px; font-size:14.5px; font-weight:600; color:var(--accent); max-width:640px;}
-  .project-toggle{
-    font-family:'IBM Plex Mono', monospace; font-size:22px; line-height:1; color:var(--ink-faint);
-    width:44px; height:44px; margin:-8px -10px 0 0; flex-shrink:0;
-    display:flex; align-items:center; justify-content:center;
-    transition:transform .2s;
+  .tag.neutral{background:var(--paper); color:var(--ink-soft); border:1px solid var(--line);}
+  .project-name{font-size:clamp(22px,2.4vw,28px); font-weight:600; line-height:1.2; margin-bottom:8px;}
+  .project-tagline{color:var(--ink-soft); font-size:15.5px; max-width:52ch;}
+
+  /* Outcome tiles: figures taken only from the project copy */
+  .metrics{display:flex; margin:24px 0 8px; border-top:1px solid var(--line-strong); border-bottom:1px solid var(--line-strong);}
+  .metric{flex:1; padding:14px 16px; border-left:1px solid var(--line-strong); min-width:0;}
+  .metric:first-child{border-left:none; padding-left:0;}
+  .metric-num{display:block; font-family:'Fraunces', serif; font-size:28px; font-weight:600; line-height:1.1; color:var(--ink);}
+  .metric-label{display:block; font-size:13px; line-height:1.4; color:var(--ink-soft); margin-top:4px;}
+
+  .details-btn{
+    display:inline-flex; align-items:center; gap:10px; min-height:44px; margin-top:8px;
+    background:none; border:none; padding:0; cursor:pointer;
+    font-size:14.5px; font-weight:600;
   }
-  .project-card.open .project-toggle{transform:rotate(45deg); color:var(--ink);}
-  /* Height animates via grid rows so long content never clips; hidden content is not focusable */
+  .details-btn .label{border-bottom:1px solid var(--ink); padding-bottom:1px;}
+  .details-btn .icon{
+    font-family:'IBM Plex Mono', monospace; font-size:20px; line-height:1;
+    width:28px; height:28px; display:inline-flex; align-items:center; justify-content:center;
+    border:1px solid var(--line-strong); border-radius:50%; transition:transform .2s;
+  }
+  .project-card.open .details-btn .icon{transform:rotate(45deg);}
+  .details-btn .when-open{display:none;}
+  .project-card.open .details-btn .when-open{display:inline;}
+  .project-card.open .details-btn .when-closed{display:none;}
+
+  /* Expandable detail: overview, three contributions, stack */
   .project-body{display:grid; grid-template-rows:0fr; visibility:hidden; transition:grid-template-rows .3s ease, visibility 0s linear .3s;}
   .project-card.open .project-body{grid-template-rows:1fr; visibility:visible; transition:grid-template-rows .3s ease, visibility 0s;}
   .project-body-clip{overflow:hidden; min-height:0;}
-  .project-body-inner{padding:0 0 36px; display:grid; gap:22px; max-width:760px;}
+  .project-body-inner{padding:8px 0 44px;}
+  .panel-cols{display:grid; grid-template-columns:minmax(0,1fr); gap:40px;}
+  .panel-cols.with-demo{grid-template-columns:minmax(0,1fr) minmax(0,380px); gap:56px; align-items:start;}
+  .panel-text{display:grid; gap:24px; max-width:680px;}
   .proj-label{font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.04em; margin-bottom:8px;}
-  .proj-text{font-size:14.5px; line-height:1.75; color:var(--ink-soft);}
+  .proj-text{font-size:15px; line-height:1.75; color:var(--ink-soft);}
   .proj-text.small{font-size:13px; color:var(--ink-faint);}
-  .proj-list li{font-size:14.5px; line-height:1.7; color:var(--ink-soft); padding-left:16px; position:relative; margin-bottom:6px;}
+  .proj-list li{font-size:15px; line-height:1.7; color:var(--ink-soft); padding-left:18px; position:relative; margin-bottom:8px;}
   .proj-list li::before{content:"—"; position:absolute; left:0; color:var(--ink-faint);}
+  .more-detail{margin-top:4px;}
+  .more-detail summary{
+    list-style:none; cursor:pointer; display:inline-flex; align-items:center; min-height:44px;
+    font-size:14px; font-weight:600;
+  }
+  .more-detail summary::-webkit-details-marker{display:none;}
+  .more-detail summary span{border-bottom:1px solid var(--ink-faint); padding-bottom:1px;}
+  .more-detail .when-open{display:none;}
+  .more-detail[open] .when-open{display:inline;}
+  .more-detail[open] .when-closed{display:none;}
   .stack-pills{display:flex; gap:8px; flex-wrap:wrap;}
   .stack-pill{
     font-family:'IBM Plex Mono', monospace; font-size:12px; padding:5px 11px;
-    border:1px solid var(--line-strong); border-radius:2px; color:var(--ink-soft);
+    border:1px solid var(--line-strong); border-radius:2px; color:var(--ink-soft); background:var(--paper);
   }
 
-  /* Optional testimonial — uncomment the markup in the Projects section when you have a real quote */
+  /* ---------- Illustrative WhatsApp conversation (stand-in; replace with a real screenshot) ---------- */
+  .chat{margin:0; border:1px solid var(--line-strong); border-radius:6px; background:var(--card); overflow:hidden;}
+  .chat-head{
+    display:flex; justify-content:space-between; align-items:center; gap:12px;
+    padding:12px 16px; background:var(--accent); color:var(--paper); font-size:14px; font-weight:600;
+  }
+  .chat-head small{font-family:'IBM Plex Mono', monospace; font-size:11.5px; font-weight:400; opacity:.85;}
+  .chat-body{display:flex; flex-direction:column; gap:10px; padding:16px; background:var(--paper-2);}
+  .msg{max-width:86%; padding:9px 13px; border-radius:10px; font-size:14px; line-height:1.5; color:var(--ink);}
+  .msg.me{align-self:flex-end; background:var(--accent-soft); border-bottom-right-radius:2px;}
+  .msg.bos{align-self:flex-start; background:var(--card); border:1px solid var(--line); border-bottom-left-radius:2px;}
+  .msg .file{
+    display:flex; align-items:center; gap:10px; margin-top:8px; padding:8px 10px;
+    background:var(--paper-2); border-radius:6px; font-size:13px;
+  }
+  .msg .file b{font-family:'IBM Plex Mono', monospace; font-size:11px; background:var(--ember); color:#fff; padding:3px 6px; border-radius:3px; font-weight:500;}
+  .msg .tagline-sm{display:block; font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--ink-faint); margin-bottom:4px;}
+  .chat figcaption{padding:10px 16px; font-size:12.5px; color:var(--ink-faint); border-top:1px solid var(--line);}
+
+  /* Optional testimonial: fill in a real quote, then uncomment the markup in the Work section */
   .quote{margin:44px 0 0; padding:24px 0 0 24px; border-left:2px solid var(--accent); max-width:640px;}
   .quote blockquote{margin:0; font-family:'Fraunces', serif; font-size:20px; line-height:1.5; color:var(--ink);}
   .quote figcaption{margin-top:12px; font-size:13.5px; color:var(--ink-soft);}
 
+  /* ---------- About + capabilities ---------- */
+  #about{}
+  .about-grid{display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:start;}
+  .about-body{font-size:16px; line-height:1.8; color:var(--ink-soft); margin-bottom:18px; max-width:62ch;}
+  .about-body strong{color:var(--ink); font-weight:600;}
+  .about-photo{aspect-ratio:5/4; width:100%; height:auto; object-fit:cover; border-radius:3px; margin-top:32px; background:var(--paper-2);}
+  .cap-title{font-size:22px; margin-bottom:6px;}
+  .cap-sub{font-size:14.5px; color:var(--ink-soft); margin-bottom:22px;}
+  .cap-list li{
+    padding:16px 0; border-top:1px solid var(--line);
+    display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:6px 20px; align-items:baseline;
+  }
+  .cap-list li:last-child{border-bottom:1px solid var(--line);}
+  .cap-name{font-weight:600; font-size:15px;}
+  .cap-proof{font-size:14px; color:var(--ink-soft);}
+  .cap-proof a{border-bottom:1px solid var(--ink-faint); color:var(--ink); font-weight:500;}
+  .cap-proof a:hover{border-color:var(--ink);}
+  .tools-line{margin-top:22px; font-size:14px; color:var(--ink-soft);}
+  .tools-line b{font-family:'IBM Plex Mono', monospace; font-size:12px; font-weight:400; color:var(--ink-faint); margin-right:6px;}
+
   /* ---------- More work ---------- */
   #more-work{border-top:1px solid var(--line); background:var(--paper-2);}
+  .more-group{margin-bottom:44px;}
+  .more-group:last-child{margin-bottom:0;}
+  .more-group-title{font-size:22px; margin-bottom:4px;}
+  .more-group-sub{font-size:14px; color:var(--ink-soft); margin-bottom:14px;}
   .more-list li{
     display:grid; grid-template-columns:minmax(0,1fr) 130px 110px; column-gap:24px; row-gap:4px; align-items:baseline;
-    padding:16px 0; border-top:1px solid var(--line); font-size:14px;
+    padding:16px 0; border-top:1px solid var(--line-strong); font-size:14px;
   }
-  .more-list li:last-child{border-bottom:1px solid var(--line);}
+  .more-list li:last-child{border-bottom:1px solid var(--line-strong);}
   .more-main{display:block; min-width:0;}
   .more-name{display:block; font-weight:600; color:var(--ink);}
   .more-tagline{display:block; color:var(--ink-soft); margin-top:2px;}
   .more-status{font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--ink-faint);}
-  .more-link{
-    justify-self:end; font-size:13.5px; font-weight:600; white-space:nowrap;
-    padding:8px 0; border-bottom:1px solid transparent; position:relative;
-  }
+  .more-link{justify-self:end; font-size:13.5px; font-weight:600; white-space:nowrap; padding:8px 0;}
   .more-link span{border-bottom:1px solid var(--ink-faint); padding-bottom:1px;}
   .more-link:hover span{border-color:var(--ink);}
-  .more-extra summary{
+  .fold summary{
     list-style:none; cursor:pointer; display:inline-flex; align-items:center; min-height:44px;
-    margin:16px 0; font-size:14px; font-weight:600;
+    margin:14px 0 0; font-size:14px; font-weight:600;
   }
-  .more-extra summary::-webkit-details-marker{display:none;}
-  .more-extra summary span{border-bottom:1px solid var(--ink); padding-bottom:1px;}
-  .more-extra .when-open{display:none;}
-  .more-extra[open] .when-open{display:inline;}
-  .more-extra[open] .when-closed{display:none;}
-  .more-extra[open] summary{margin-bottom:0;}
-  .more-extra[open] .more-list li:first-child{border-top:1px solid var(--line-strong);}
+  .fold summary::-webkit-details-marker{display:none;}
+  .fold summary span{border-bottom:1px solid var(--ink); padding-bottom:1px;}
+  .fold .when-open{display:none;}
+  .fold[open] .when-open{display:inline;}
+  .fold[open] .when-closed{display:none;}
+  .fold[open] summary{margin-bottom:6px;}
+  .fold > .more-list{margin-top:6px;}
 
   /* ---------- Experience ---------- */
   #experience{border-top:1px solid var(--line);}
@@ -334,14 +354,23 @@
   .exp-desc li::before{content:"—"; position:absolute; left:0; color:var(--ink-faint);}
 
   /* ---------- Contact ---------- */
-  #contact{border-top:1px solid var(--line); text-align:left;}
-  .contact-title{font-size:clamp(32px,4.4vw,52px); margin-bottom:20px; max-width:600px;}
-  .contact-sub{font-size:16px; color:var(--ink-soft); max-width:520px; margin-bottom:32px; line-height:1.7;}
-  .contact-links{display:flex; gap:8px 28px; flex-wrap:wrap; margin-top:28px;}
-  .contact-link{
-    display:inline-flex; align-items:center; min-height:44px;
-    font-size:14.5px; font-weight:600;
+  #contact{border-top:1px solid var(--line); text-align:left; background:var(--paper-2);}
+  .contact-title{font-size:clamp(32px,4.4vw,52px); margin-bottom:20px; max-width:640px;}
+  .contact-sub{font-size:16px; color:var(--ink-soft); max-width:560px; margin-bottom:36px; line-height:1.7;}
+  .paths{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px; margin-bottom:40px;}
+  .path{
+    display:flex; flex-direction:column; gap:8px; padding:22px 22px 18px;
+    background:var(--card); border:1px solid var(--line-strong); border-radius:3px;
+    transition:border-color .15s, transform .15s;
   }
+  .path:hover{border-color:var(--ink);}
+  .path-title{font-family:'Fraunces', serif; font-size:19px; font-weight:600; line-height:1.25;}
+  .path-desc{font-size:14px; color:var(--ink-soft); flex:1;}
+  .path-go{font-size:13.5px; font-weight:600; margin-top:6px;}
+  .path-go span{border-bottom:1px solid var(--ink); padding-bottom:1px;}
+  .contact-alt{display:flex; align-items:center; flex-wrap:wrap; gap:8px 28px;}
+  .contact-alt .lead{font-size:14.5px; color:var(--ink-soft);}
+  .contact-link{display:inline-flex; align-items:center; min-height:44px; font-size:14.5px; font-weight:600;}
   .contact-link span{border-bottom:1px solid var(--line-strong); padding-bottom:2px; transition:border-color .15s;}
   .contact-link:hover span{border-color:var(--ink);}
 
@@ -349,20 +378,20 @@
   .footer-inner{display:flex; justify-content:space-between; font-size:12.5px; color:var(--ink-faint); font-family:'IBM Plex Mono', monospace;}
 
   /* ---------- Responsive ---------- */
+  @media (max-width:1000px){
+    .panel-cols.with-demo{grid-template-columns:minmax(0,1fr); gap:32px;}
+    .chat{max-width:420px;}
+  }
   @media (max-width:900px){
     .hero-grid{grid-template-columns:1fr; gap:40px;}
-    /* text and CTAs come first; portrait follows and stays modest so the first screen is not all photo */
     .portrait{max-width:260px;}
-    #about .about-grid{grid-template-columns:1fr; gap:48px;}
-    .proof-grid{grid-template-columns:1fr;}
-    .proof-item{border-left:none; border-top:1px solid var(--line); padding:24px 22px;}
-    .proof-item:first-child{border-top:none;}
-    .stack-grid{grid-template-columns:1fr; gap:28px;}
+    .project-face{grid-template-columns:minmax(0,1fr); gap:24px; padding:32px 0 20px;}
+    .about-grid{grid-template-columns:1fr; gap:48px;}
+    .paths{grid-template-columns:1fr;}
     .exp-item{grid-template-columns:1fr; gap:8px;}
   }
   @media (max-width:768px){
     .wrap, .nav-inner{padding-left:22px; padding-right:22px;}
-    .proof-item{padding-left:22px; padding-right:22px;}
     .nav-links{
       position:fixed; inset:0; top:var(--nav-h); background:var(--paper);
       flex-direction:column; align-items:flex-start; padding:24px 22px;
@@ -373,13 +402,16 @@
     .nav-toggle{display:flex;}
     .nav-links a.nav-cta{display:inline-flex; margin-top:16px; width:auto; padding:12px 20px; font-size:15px;}
     section{padding:64px 0;}
-    #hero{padding:48px 0 44px;}
-    .project-header{gap:14px;}
+    #hero{padding:48px 0 52px;}
     .footer-inner{flex-direction:column; gap:6px;}
     .more-list li{grid-template-columns:1fr auto; column-gap:16px;}
     .more-main{grid-column:1 / -1;}
     .more-link{padding:6px 0;}
     .btn-primary, .btn-ghost{flex:1 1 auto;}
+    .metric{padding:12px 10px;}
+    .metric-num{font-size:23px;}
+    .metric-label{font-size:12.5px;}
+    .cap-list li{grid-template-columns:1fr;}
   }
   @media (prefers-reduced-motion:reduce){
     html{scroll-behavior:auto;}
@@ -399,11 +431,11 @@
       <span></span><span></span><span></span>
     </button>
     <div class="nav-links" id="nav-links">
-      <a href="#about">About</a>
       <a href="#projects">Work</a>
+      <a href="#about">About</a>
       <a href="#experience">Experience</a>
       <a href="#contact">Contact</a>
-      <a href="mailto:chuksforge@gmail.com?subject=Project%20enquiry" class="nav-cta">Work with me</a>
+      <a href="#contact" class="nav-cta">Work with me</a>
     </div>
   </div>
 </nav>
@@ -424,8 +456,8 @@
         <strong>BOS</strong>, my flagship product, runs live for Nigerian small business owners today.
       </p>
       <div class="hero-actions">
-        <!-- TODO: swap this mailto for a booking link (Cal.com or similar) when you have one -->
-        <a href="mailto:chuksforge@gmail.com?subject=Project%20enquiry" class="btn-primary">Discuss a project</a>
+        <!-- TODO: swap this link for a booking link (Cal.com or similar) when you have one -->
+        <a href="#contact" class="btn-primary">Discuss a project</a>
         <a href="#projects" class="btn-ghost">See the work</a>
       </div>
     </div>
@@ -433,37 +465,225 @@
   </div>
 </section>
 
-<!-- Proof strip: each card opens the matching project below -->
-<section id="proof" aria-label="Flagship products">
-  <div class="wrap" style="padding:0;">
-    <div class="proof-grid">
-      <a class="proof-item" href="#bos">
-        <span class="proof-label"><span class="status-dot" aria-hidden="true"></span>In production</span>
-        <span class="proof-name">BOS</span>
-        <span class="proof-status">WhatsApp business OS, live with Nigerian MSMEs</span>
-        <!-- TODO: add a real usage number here (active merchants, messages handled, invoices generated) -->
-        <span class="proof-metric">Roughly 4x lower latency after an infrastructure fix</span>
-        <span class="proof-more">See details</span>
-      </a>
-      <a class="proof-item" href="#evalci">
-        <span class="proof-label"><span class="status-dot" aria-hidden="true"></span>Open-core</span>
-        <span class="proof-name">EvalCI</span>
-        <span class="proof-status">LLM regression testing, design-partner stage</span>
-        <span class="proof-metric">Apache-2.0 engine, pip-installable</span>
-        <span class="proof-more">See details</span>
-      </a>
-      <a class="proof-item" href="#finops">
-        <span class="proof-label"><span class="status-dot" aria-hidden="true"></span>Deployed</span>
-        <span class="proof-name">ChuksForge FinOps</span>
-        <span class="proof-status">Ledger &amp; billing infrastructure for AI companies</span>
-        <span class="proof-metric">80-account Nigerian chart of accounts, 6 billing adapters</span>
-        <span class="proof-more">See details</span>
-      </a>
+<!-- Featured work: product, result and status are visible without opening anything -->
+<section id="projects">
+  <div class="wrap">
+    <div class="section-label">Featured work</div>
+    <h2 class="section-title">Systems I've shipped</h2>
+    <p class="section-intro">Three flagship projects. Each opens to its overview, the work I did, and the stack.</p>
+
+    <div class="projects-list">
+
+      <!-- BOS -->
+      <article class="project-card" id="bos">
+        <div class="project-face">
+          <img src="bos.png" alt="BOS chat interface and dashboard screenshot" class="cover" width="1600" height="900" loading="lazy" decoding="async" />
+          <div class="project-summary">
+            <div class="tag-row">
+              <span class="tag">Live</span>
+              <span class="tag neutral">Confidential engagement</span>
+            </div>
+            <h3 class="project-name">BOS — WhatsApp Business Operating System</h3>
+            <p class="project-tagline">A business OS for Nigerian MSMEs. Merchants run sales, expenses, stock and debtors by sending a message.</p>
+            <!-- TODO: add a real usage tile here (active merchants, messages handled or invoices generated) -->
+            <div class="metrics">
+              <div class="metric"><span class="metric-num">~4x</span><span class="metric-label">lower latency after an infrastructure fix</span></div>
+              <div class="metric"><span class="metric-num">Live</span><span class="metric-label">with Nigerian merchants today</span></div>
+              <div class="metric"><span class="metric-num">2</span><span class="metric-label">production incidents root-caused, each with a regression test</span></div>
+            </div>
+            <button class="details-btn" type="button" id="bos-btn" aria-expanded="false" aria-controls="bos-panel">
+              <span class="icon" aria-hidden="true">+</span>
+              <span class="label"><span class="when-closed">View details</span><span class="when-open">Hide details</span></span>
+            </button>
+          </div>
+        </div>
+        <div class="project-body" id="bos-panel" role="region" aria-labelledby="bos-btn"><div class="project-body-clip"><div class="project-body-inner">
+          <div class="panel-cols with-demo">
+            <div class="panel-text">
+              <div>
+                <div class="proj-label">Overview</div>
+                <p class="proj-text">A merchant messages BOS the way they already message customers, and it records sales,
+                  tracks expenses and debtors, manages inventory, and sends daily business briefings automatically. It has
+                  grown into a full financial back office: PDF invoicing and device-sale receipts generated from a single
+                  message, staff and multi-branch support, bulk debtor clearing, and analytics. More recently, it gained a
+                  companion mobile and web app built on the same backend.</p>
+              </div>
+              <div>
+                <div class="proj-label">What I did</div>
+                <ul class="proj-list">
+                  <li>Shipped the product and owned production hardening pre-launch. Fixed a cross-region infrastructure misconfiguration that cut latency roughly 4x, plus rate limiting, dead-letter queues, and compliance work</li>
+                  <li>Rebuilt the natural-language parser architecture and hardened it against real Nigerian merchant phrasing across many rounds of review</li>
+                  <li>Extended the product into a full React Native / Expo mobile and web app, reusing the existing FastAPI backend end-to-end</li>
+                </ul>
+                <details class="more-detail">
+                  <summary><span class="when-closed">More detail</span><span class="when-open">Less detail</span></summary>
+                  <ul class="proj-list">
+                    <li>Shipped invoicing, device-sale receipts, staff/branch management, bulk debt clearing, and analytics</li>
+                    <li>Diagnosed two separate production incidents to root cause, each closed out with a regression test</li>
+                  </ul>
+                </details>
+              </div>
+              <div>
+                <div class="proj-label">Stack</div>
+                <div class="stack-pills">
+                  <span class="stack-pill">FastAPI</span><span class="stack-pill">Celery</span><span class="stack-pill">PostgreSQL</span>
+                  <span class="stack-pill">Redis</span><span class="stack-pill">WhatsApp Business API</span>
+                  <span class="stack-pill">React Native / Expo</span><span class="stack-pill">Railway</span>
+                </div>
+              </div>
+              <p class="proj-text small">Confidential commercial engagement. Code and architecture stay private; details available on request.</p>
+            </div>
+
+            <!-- STAND-IN: illustrative conversation with sample data. Replace this whole <figure> with a real
+                 BOS screenshot, e.g. <img src="bos-chat.png" alt="Merchant recording a sale with BOS on WhatsApp" width="760" height="1200" loading="lazy" />
+                 and remove the caption about sample data. -->
+            <figure class="chat" aria-label="Illustrative WhatsApp conversation with BOS">
+              <div class="chat-head"><span>BOS</span><small>Illustrative example</small></div>
+              <div class="chat-body">
+                <p class="msg me">I sell 3 bag rice give Mama Tunde, 54k. She pay 34k, remain 20k</p>
+                <p class="msg bos">Recorded: 3 bags of rice, ₦54,000. Mama Tunde paid ₦34,000 and owes ₦20,000.</p>
+                <p class="msg me">Send her invoice</p>
+                <p class="msg bos">Invoice for Mama Tunde is ready.
+                  <span class="file"><b>PDF</b> Invoice · ₦54,000</span></p>
+                <p class="msg bos"><span class="tagline-sm">Daily briefing</span>Today: 14 sales, ₦212,500 in, ₦38,000 spent. 3 customers still owe you.</p>
+              </div>
+              <figcaption>Illustrative conversation with sample data. Not a real merchant's records.</figcaption>
+            </figure>
+          </div>
+        </div></div></div>
+      </article>
+
+      <!-- EvalCI -->
+      <article class="project-card" id="evalci">
+        <div class="project-face">
+          <img src="evalci.png" alt="EvalCI dashboard screenshot" class="cover" width="1600" height="900" loading="lazy" decoding="async" />
+          <div class="project-summary">
+            <div class="tag-row">
+              <span class="tag">Open-core</span>
+              <span class="tag neutral">Design partners</span>
+            </div>
+            <h3 class="project-name">EvalCI — "pytest for LLM quality"</h3>
+            <p class="project-tagline">CI-native evaluation and regression detection for LLM applications. It fails a build on a regression the way a broken unit test would.</p>
+            <div class="metrics">
+              <div class="metric"><span class="metric-num">Apache-2.0</span><span class="metric-label">open-source engine, pip-installable</span></div>
+              <div class="metric"><span class="metric-num">28</span><span class="metric-label">golden-dataset items across four domains</span></div>
+              <div class="metric"><span class="metric-num">15 min</span><span class="metric-label">self-host quickstart</span></div>
+            </div>
+            <button class="details-btn" type="button" id="evalci-btn" aria-expanded="false" aria-controls="evalci-panel">
+              <span class="icon" aria-hidden="true">+</span>
+              <span class="label"><span class="when-closed">View details</span><span class="when-open">Hide details</span></span>
+            </button>
+          </div>
+        </div>
+        <div class="project-body" id="evalci-panel" role="region" aria-labelledby="evalci-btn"><div class="project-body-clip"><div class="project-body-inner">
+          <div class="panel-cols">
+            <div class="panel-text">
+              <div>
+                <div class="proj-label">Overview</div>
+                <p class="proj-text">Instead of comparing scores over time and hoping drift is visible, EvalCI tests
+                  against an explicit baseline and fails a build the way a broken unit test would. The detection engine,
+                  <span class="mono">evalci-core</span>, is open-core, Apache-2.0 licensed and pip-installable, self-hosted
+                  from day one via Docker Compose or Kubernetes. It's positioned directly against Braintrust, LangSmith,
+                  and Langfuse, and is currently in early access with design partners.</p>
+              </div>
+              <div>
+                <div class="proj-label">What I did</div>
+                <ul class="proj-list">
+                  <li>Built the platform from scratch across five phases: FastAPI, Celery, PostgreSQL, Redis, Kubernetes, and a Next.js dashboard</li>
+                  <li>Open-sourced the regression-detection engine with a 28-item golden dataset spanning four domains</li>
+                  <li>Built billing (Paystack and Flutterwave), a GitHub Action for automated PR comments, and a 15-minute self-host quickstart</li>
+                </ul>
+                <details class="more-detail">
+                  <summary><span class="when-closed">More detail</span><span class="when-open">Less detail</span></summary>
+                  <ul class="proj-list">
+                    <li>Migrated the scheduler from APScheduler to Celery Beat, uncovering and fixing several deep infrastructure bugs</li>
+                  </ul>
+                </details>
+              </div>
+              <div>
+                <div class="proj-label">Stack</div>
+                <div class="stack-pills">
+                  <span class="stack-pill">Python</span><span class="stack-pill">FastAPI</span><span class="stack-pill">Kubernetes</span>
+                  <span class="stack-pill">Celery</span><span class="stack-pill">Next.js</span>
+                </div>
+              </div>
+              <p class="proj-text small mono">pip install evalci-core</p>
+            </div>
+          </div>
+        </div></div></div>
+      </article>
+
+      <!-- ChuksForge FinOps -->
+      <article class="project-card" id="finops">
+        <div class="project-face">
+          <img src="finops.png" alt="FinOps ledger screenshot" class="cover" width="1600" height="900" loading="lazy" decoding="async" />
+          <div class="project-summary">
+            <div class="tag-row">
+              <span class="tag">Deployed</span>
+              <span class="tag neutral">Confidential</span>
+            </div>
+            <h3 class="project-name">ChuksForge FinOps — AI-Native Financial Operating System</h3>
+            <p class="project-tagline">Double-entry ledger and billing infrastructure built for how AI-heavy companies actually spend.</p>
+            <div class="metrics">
+              <div class="metric"><span class="metric-num">80</span><span class="metric-label">accounts in a Nigerian-compliant chart</span></div>
+              <div class="metric"><span class="metric-num">6</span><span class="metric-label">built-in billing adapters</span></div>
+              <div class="metric"><span class="metric-num">15</span><span class="metric-label">journal-entry templates</span></div>
+            </div>
+            <button class="details-btn" type="button" id="finops-btn" aria-expanded="false" aria-controls="finops-panel">
+              <span class="icon" aria-hidden="true">+</span>
+              <span class="label"><span class="when-closed">View details</span><span class="when-open">Hide details</span></span>
+            </button>
+          </div>
+        </div>
+        <div class="project-body" id="finops-panel" role="region" aria-labelledby="finops-btn"><div class="project-body-clip"><div class="project-body-inner">
+          <div class="panel-cols">
+            <div class="panel-text">
+              <div>
+                <div class="proj-label">Overview</div>
+                <p class="proj-text">A real double-entry ledger with an 80-account Nigerian-compliant chart of accounts,
+                  six built-in billing adapters (OpenAI, Anthropic, Vercel, Railway, Supabase, OpenRouter), and Paystack
+                  billing on top. The kind of financial infrastructure most AI startups improvise in a spreadsheet
+                  until it breaks.</p>
+              </div>
+              <div>
+                <div class="proj-label">What I did</div>
+                <ul class="proj-list">
+                  <li>Designed the double-entry ledger and chart of accounts from scratch, plus a priority-queue rules engine and RBAC</li>
+                  <li>Built six billing adapters for the platforms AI companies actually pay for</li>
+                  <li>Deployed to Railway with Supabase, resolving PgBouncer prepared-statement errors, a JWT persistence bug, and orphaned queue-connection issues</li>
+                </ul>
+                <details class="more-detail">
+                  <summary><span class="when-closed">More detail</span><span class="when-open">Less detail</span></summary>
+                  <ul class="proj-list">
+                    <li>Added manual accounting tools: a cost-event modal, a Nigerian-bank-format CSV import wizard, and 15 journal-entry templates</li>
+                  </ul>
+                </details>
+              </div>
+              <div>
+                <div class="proj-label">Stack</div>
+                <div class="stack-pills">
+                  <span class="stack-pill">Next.js</span><span class="stack-pill">Express</span><span class="stack-pill">PostgreSQL</span>
+                  <span class="stack-pill">Prisma</span><span class="stack-pill">Paystack</span>
+                </div>
+              </div>
+              <p class="proj-text small">Confidential commercial engagement. Code and architecture stay private; details available on request.</p>
+            </div>
+          </div>
+        </div></div></div>
+      </article>
+
     </div>
+
+    <!-- Optional testimonial: fill in a real quote, then remove the comment markers.
+    <figure class="quote">
+      <blockquote>“Real quote from a merchant, design partner, or client.”</blockquote>
+      <figcaption>Name, role, company</figcaption>
+    </figure>
+    -->
   </div>
 </section>
 
-<!-- About -->
+<!-- About + capabilities mapped to the projects that prove them -->
 <section id="about">
   <div class="wrap about-grid">
     <div>
@@ -486,386 +706,148 @@
       <img src="img2.png" alt="Christian Chukwuka working at a café" class="about-photo" width="1000" height="800" loading="lazy" decoding="async" />
     </div>
     <div>
-      <div class="cap-group-title">What I build</div>
+      <h3 class="cap-title">What I engineer, and where it shows</h3>
+      <p class="cap-sub">Each capability points to work you can open.</p>
       <ul class="cap-list">
-        <li><span class="cap-name">LLM applications</span><span class="cap-desc">Production pipelines, not demos</span></li>
-        <li><span class="cap-name">Agentic systems</span><span class="cap-desc">Multi-agent orchestration</span></li>
-        <li><span class="cap-name">RAG &amp; knowledge systems</span><span class="cap-desc">Retrieval-grounded reasoning</span></li>
-        <li><span class="cap-name">Evaluation &amp; benchmarking</span><span class="cap-desc">Regression-safe LLM behavior</span></li>
-        <li><span class="cap-name">Multi-tenant SaaS</span><span class="cap-desc">From schema to billing</span></li>
-        <li><span class="cap-name">Production hardening</span><span class="cap-desc">Scale audits, API security, incident response</span></li>
+        <li>
+          <span class="cap-name">LLM applications &amp; RAG</span>
+          <span class="cap-proof"><a href="#bos">BOS</a>, ARIA, AI Document Intelligence System</span>
+        </li>
+        <li>
+          <span class="cap-name">Agentic systems</span>
+          <span class="cap-proof">Code Review Agent, Multi-Agent Data Pipeline, Startup Analyst</span>
+        </li>
+        <li>
+          <span class="cap-name">Evaluation &amp; benchmarking</span>
+          <span class="cap-proof"><a href="#evalci">EvalCI</a>, AI Document Intelligence System</span>
+        </li>
+        <li>
+          <span class="cap-name">Multi-tenant SaaS &amp; billing</span>
+          <span class="cap-proof"><a href="#finops">ChuksForge FinOps</a>, <a href="#evalci">EvalCI</a>, ARIA</span>
+        </li>
+        <li>
+          <span class="cap-name">Production hardening</span>
+          <span class="cap-proof"><a href="#bos">BOS</a> latency fix, <a href="#finops">FinOps</a> Railway and Supabase deployment</span>
+        </li>
+        <li>
+          <span class="cap-name">Geospatial &amp; logistics</span>
+          <span class="cap-proof">DispatchOS (PostGIS dispatch, rider scoring)</span>
+        </li>
       </ul>
+      <p class="tools-line"><b>Day to day</b>Python, FastAPI, Next.js, LangGraph, PostgreSQL, Redis, Celery, Kubernetes</p>
     </div>
   </div>
 </section>
 
-<!-- Stack -->
-<section id="stack">
-  <div class="wrap">
-    <div class="section-label">Tools</div>
-    <h2 class="section-title" style="margin-bottom:40px;">Working stack</h2>
-    <div class="stack-grid">
-      <div>
-        <div class="stack-col-title">Languages &amp; frameworks</div>
-        <ul class="stack-items">
-          <li class="core">Python</li><li>FastAPI</li><li class="core">Next.js</li><li>React</li>
-        </ul>
-      </div>
-      <div>
-        <div class="stack-col-title">AI &amp; LLM</div>
-        <ul class="stack-items">
-          <li class="core">LangGraph</li><li>LangChain</li><li>OpenAI</li><li>Anthropic Claude</li><li>Gemini</li>
-        </ul>
-      </div>
-      <div>
-        <div class="stack-col-title">Infra &amp; data</div>
-        <ul class="stack-items">
-          <li class="core">PostgreSQL</li><li>Redis</li><li>Celery</li><li>Kubernetes</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Featured Projects -->
-<section id="projects">
-  <div class="wrap">
-    <div class="section-label">Featured work</div>
-    <h2 class="section-title">Products &amp; projects</h2>
-    <p class="section-intro">Open a project for its contributions, stack, and current status.</p>
-
-    <div class="projects-list">
-
-      <!-- BOS -->
-      <article class="project-card" id="bos">
-        <h3 class="project-heading">
-          <button class="project-header" type="button" id="bos-btn" aria-expanded="false" aria-controls="bos-panel">
-            <span class="project-header-main">
-              <span class="tag-row">
-                <span class="tag">Live</span>
-                <span class="tag neutral">Confidential engagement</span>
-                <span class="tag neutral">FastAPI</span>
-              </span>
-              <span class="project-name">BOS Afora — Business Operating System</span>
-              <span class="project-tagline">A business OS for Nigerian MSMEs</span>
-              <span class="project-result">Cut latency roughly 4x by fixing a cross-region infrastructure misconfiguration.</span>
-            </span>
-            <span class="project-toggle" aria-hidden="true">+</span>
-          </button>
-        </h3>
-        <div class="project-body" id="bos-panel" role="region" aria-labelledby="bos-btn"><div class="project-body-clip"><div class="project-body-inner">
-          <div>
-            <img src="bos.png" alt="BOS chat interface and dashboard screenshot" class="cover" width="1600" height="900" loading="lazy" decoding="async" />
-            <div class="proj-label">Overview</div>
-            <p class="proj-text">A merchant messages BOS the way they already message customers, and it records sales,
-              tracks expenses and debtors, manages inventory, and sends daily business briefings automatically. It has
-              grown into a full financial back office: PDF invoicing and device-sale receipts generated from a single
-              message, staff and multi-branch support, bulk debtor clearing, and analytics. Plus, more recently, a
-              companion mobile and web app built on the same backend.</p>
-          </div>
-          <div>
-            <div class="proj-label">Key contributions</div>
-            <ul class="proj-list">
-              <li>Shipped the product and owned production hardening pre-launch. Fixed a cross-region infrastructure misconfiguration that cut latency roughly 4x, plus rate limiting, dead-letter queues, and compliance work</li>
-              <li>Rebuilt the natural-language parser architecture and hardened it against real Nigerian merchant phrasing across many rounds of review</li>
-              <li>Shipped invoicing, device-sale receipts, staff/branch management, bulk debt clearing, and analytics</li>
-              <li>Extended the product into a full React Native / Expo mobile and web app, reusing the existing FastAPI backend end-to-end</li>
-              <li>Diagnosed two separate production incidents to root cause, each closed out with a regression test</li>
-            </ul>
-          </div>
-          <div>
-            <div class="proj-label">Stack</div>
-            <div class="stack-pills">
-              <span class="stack-pill">FastAPI</span><span class="stack-pill">Celery</span><span class="stack-pill">PostgreSQL</span>
-              <span class="stack-pill">Redis</span><span class="stack-pill">WhatsApp Business API</span>
-              <span class="stack-pill">React Native / Expo</span><span class="stack-pill">Railway</span>
-            </div>
-          </div>
-          <p class="proj-text small">Confidential commercial engagement — code and architecture stay private; details available on request.</p>
-        </div></div></div>
-      </article>
-
-      <!-- EvalCI -->
-      <article class="project-card" id="evalci">
-        <h3 class="project-heading">
-          <button class="project-header" type="button" id="evalci-btn" aria-expanded="false" aria-controls="evalci-panel">
-            <span class="project-header-main">
-              <span class="tag-row">
-                <span class="tag">Open-core</span>
-                <span class="tag neutral">Design partners</span>
-                <span class="tag neutral">Kubernetes</span>
-              </span>
-              <span class="project-name">EvalCI — "pytest for LLM quality"</span>
-              <span class="project-tagline">CI-native evaluation and regression-detection platform for LLM applications.</span>
-              <span class="project-result">Fails a build on LLM regressions the way a broken unit test would.</span>
-            </span>
-            <span class="project-toggle" aria-hidden="true">+</span>
-          </button>
-        </h3>
-        <div class="project-body" id="evalci-panel" role="region" aria-labelledby="evalci-btn"><div class="project-body-clip"><div class="project-body-inner">
-          <div>
-            <img src="evalci.png" alt="EvalCI dashboard screenshot" class="cover" width="1600" height="900" loading="lazy" decoding="async" />
-            <div class="proj-label">Overview</div>
-            <p class="proj-text">Instead of comparing scores over time and hoping drift is visible, EvalCI tests
-              against an explicit baseline and fails a build the way a broken unit test would. The detection engine,
-              <span class="mono">evalci-core</span>, is open-core, Apache-2.0 licensed and pip-installable, self-hosted
-              from day one via Docker Compose or Kubernetes. It's positioned directly against Braintrust, LangSmith,
-              and Langfuse, and is currently in early access with design partners.</p>
-          </div>
-          <div>
-            <div class="proj-label">Key contributions</div>
-            <ul class="proj-list">
-              <li>Built the platform from scratch across five phases: FastAPI, Celery, PostgreSQL, Redis, Kubernetes, and a Next.js dashboard</li>
-              <li>Migrated the scheduler from APScheduler to Celery Beat, uncovering and fixing several deep infrastructure bugs</li>
-              <li>Open-sourced the regression-detection engine with a 28-item golden dataset spanning four domains</li>
-              <li>Built billing (Paystack and Flutterwave), a GitHub Action for automated PR comments, and a 15-minute self-host quickstart</li>
-            </ul>
-          </div>
-          <div>
-            <div class="proj-label">Stack</div>
-            <div class="stack-pills">
-              <span class="stack-pill">Python</span><span class="stack-pill">FastAPI</span><span class="stack-pill">Kubernetes</span>
-              <span class="stack-pill">Celery</span><span class="stack-pill">Next.js</span>
-            </div>
-          </div>
-          <p class="proj-text small mono">pip install evalci-core</p>
-        </div></div></div>
-      </article>
-
-      <!-- ChuksForge FinOps -->
-      <article class="project-card" id="finops">
-        <h3 class="project-heading">
-          <button class="project-header" type="button" id="finops-btn" aria-expanded="false" aria-controls="finops-panel">
-            <span class="project-header-main">
-              <span class="tag-row">
-                <span class="tag">Deployed</span>
-                <span class="tag neutral">Confidential</span>
-                <span class="tag neutral">Next.js</span>
-              </span>
-              <span class="project-name">ChuksForge FinOps — AI-Native Financial Operating System</span>
-              <span class="project-tagline">Double-entry ledger and billing infrastructure built for how AI-heavy companies actually spend.</span>
-              <span class="project-result">80-account Nigerian-compliant chart of accounts and six built-in billing adapters.</span>
-            </span>
-            <span class="project-toggle" aria-hidden="true">+</span>
-          </button>
-        </h3>
-        <div class="project-body" id="finops-panel" role="region" aria-labelledby="finops-btn"><div class="project-body-clip"><div class="project-body-inner">
-          <div>
-            <img src="finops.png" alt="FinOps ledger screenshot" class="cover" width="1600" height="900" loading="lazy" decoding="async" />
-            <div class="proj-label">Overview</div>
-            <p class="proj-text">A real double-entry ledger with an 80-account Nigerian-compliant chart of accounts,
-              six built-in billing adapters (OpenAI, Anthropic, Vercel, Railway, Supabase, OpenRouter), and Paystack
-              billing on top. The kind of financial infrastructure most AI startups improvise in a spreadsheet
-              until it breaks.</p>
-          </div>
-          <div>
-            <div class="proj-label">Key contributions</div>
-            <ul class="proj-list">
-              <li>Designed the double-entry ledger and chart of accounts from scratch, plus a priority-queue rules engine and RBAC</li>
-              <li>Built six billing adapters for the platforms AI companies actually pay for</li>
-              <li>Deployed to Railway with Supabase, resolving PgBouncer prepared-statement errors, a JWT persistence bug, and orphaned queue-connection issues</li>
-              <li>Added manual accounting tools: a cost-event modal, a Nigerian-bank-format CSV import wizard, and 15 journal-entry templates</li>
-            </ul>
-          </div>
-          <div>
-            <div class="proj-label">Stack</div>
-            <div class="stack-pills">
-              <span class="stack-pill">Next.js</span><span class="stack-pill">Express</span><span class="stack-pill">PostgreSQL</span>
-              <span class="stack-pill">Prisma</span><span class="stack-pill">Paystack</span>
-            </div>
-          </div>
-          <p class="proj-text small">Confidential commercial engagement — code and architecture stay private; details available on request.</p>
-        </div>
-        
-                <!-- 05 Code Review Agent -->
-        <div class="project-card">
-          <div class="project-header" onclick="toggleProject(this)">
-            <div class="project-num">05</div>
-            <div class="project-header-main">
-              <div class="tag-row">
-                <span class="tag">Open-core</span>
-                <span class="tag neutral">LangGraph</span>
-                <span class="tag neutral">Public repo</span>
-              </div>
-              <div class="project-name">Code Review Agent — Noise-Reduced LLM Feedback for CI</div>
-              <div class="project-tagline">Filters and prioritizes automated code review findings to surface only actionable, high-signal issues.</div>
-            </div>
-            <div class="project-toggle">+</div>
-          </div>
-          <div class="project-body"><div class="project-body-inner">
-            <div>
-              <!-- SCREENSHOT: optional — replace with <img src="code-review-agent-cover.jpg" alt="Code Review Agent output sample" class="cover-slot" /> -->
-            <div class="img-slot cover-slot"><img src="cra.jpg" alt="Code Review Agent output sample" class="cover-slot" /></div>
-            <div class="proj-label">Overview</div>
-              <p class="proj-text">A multi-agent code review system that addresses the core failure mode of LLM-based
-                review tools: noisy, repetitive, low-priority findings that slow development down rather than speed
-                it up. A critic loop re-evaluates initial LLM output against static analysis results, deduplicates
-                findings, and produces a ranked report suitable for direct CI/CD consumption.</p>
-            </div>
-            <div>
-              <div class="proj-label">Key contributions</div>
-              <ul class="proj-list">
-                <li>Designed the Planner → Critic → Rewriter → Reconciler agent pipeline in LangGraph</li>
-                <li>Built a critic loop that re-evaluates LLM findings against deterministic static analysis before surfacing results</li>
-                <li>Implemented confidence-scored deduplication and severity-based prioritization</li>
-                <li>Applied an open-core strategy: public tooling and schemas, private prompt architecture and calibration logic</li>
-              </ul>
-            </div>
-            <div>
-              <div class="proj-label">Stack</div>
-              <div class="stack-pills">
-                <span class="stack-pill">Python</span><span class="stack-pill">LangGraph</span>
-                <span class="stack-pill">Static analysis</span><span class="stack-pill">Structured outputs</span>
-              </div>
-            </div>
-            <a href="https://github.com/ChuksForge/code-review-agent-public" target="_blank" class="proj-link">View on GitHub ↗</a>
-          </div></div>
-        </div>
-
-        <!-- 06 DispatchOS -->
-        <div class="project-card">
-          <div class="project-header" onclick="toggleProject(this)">
-            <div class="project-num">06</div>
-            <div class="project-header-main">
-              <div class="tag-row">
-                <span class="tag">Shipped</span>
-                <span class="tag neutral">Confidential</span>
-                <span class="tag neutral">PostGIS</span>
-              </div>
-              <div class="project-name">DispatchOS — Nigerian Last-Mile Logistics Platform</div>
-              <div class="project-tagline">A logistics operating system for last-mile delivery: dispatch, rider management, order tracking.</div>
-            </div>
-            <div class="project-toggle">+</div>
-          </div>
-          <div class="project-body"><div class="project-body-inner">
-            <div>
-              <!-- SCREENSHOT: optional — replace with <img src="dispatchos-cover.jpg" alt="DispatchOS dashboard screenshot" class="cover-slot" /> -->
-            <div class="img-slot cover-slot"><img src="dios.jpg" alt="DispatchOS dashboard screenshot" class="cover-slot" /></div>
-            <div class="proj-label">Overview</div>
-              <p class="proj-text">A last-mile logistics platform built as a Turborepo monorepo, combining PostgreSQL/PostGIS
-                for geospatial dispatch logic with Mapbox for routing, Paystack for payments, and Termii for SMS.</p>
-            </div>
-            <div>
-              <div class="proj-label">Key contributions</div>
-              <ul class="proj-list">
-                <li>Built the dispatch, rider-scoring, and order-tracking core across a five-phase delivery</li>
-                <li>Post-build inspection pass found and fixed four confirmed bugs, including a seed-data sequence collision</li>
-              </ul>
-            </div>
-            <div>
-              <div class="proj-label">Stack</div>
-              <div class="stack-pills">
-                <span class="stack-pill">PostgreSQL / PostGIS</span><span class="stack-pill">Mapbox</span>
-                <span class="stack-pill">Paystack</span><span class="stack-pill">Termii</span>
-              </div>
-            </div>
-            <p class="proj-text" style="color:var(--ink-faint); font-size:13px;">Confidential commercial engagement — code and architecture stay private; details available on request.</p>
-          </div></div>
-        </div>
-      
-      </div></div>
-      </article>
-
-    </div>
-
-    <!-- Optional testimonial: fill in a real quote, then remove the comment markers.
-    <figure class="quote">
-      <blockquote>“Real quote from a merchant, design partner, or client.”</blockquote>
-      <figcaption>Name, role, company</figcaption>
-    </figure>
-    -->
-  </div>
-</section>
-
-<!-- More Work -->
+<!-- More work, grouped by what it is -->
 <section id="more-work">
   <div class="wrap">
     <div class="section-label">Additional work</div>
-    <h2 class="section-title" style="margin-bottom:36px;">More projects</h2>
+    <h2 class="section-title" style="margin-bottom:40px;">More projects</h2>
 
-    <ul class="more-list">
-      <li>
-        <span class="more-main"><span class="more-name">Code Review Agent</span><span class="more-tagline">LangGraph critic loop that filters LLM review findings against static analysis, so CI only sees actionable issues.</span></span>
-        <span class="more-status">Open-core</span>
-        <a href="https://github.com/ChuksForge/code-review-agent-public" target="_blank" rel="noopener noreferrer" class="more-link" aria-label="Code Review Agent on GitHub (opens in a new tab)"><span>GitHub ↗</span></a>
-      </li>
-      <li>
-        <span class="more-main"><span class="more-name">Multi-Agent Data Pipeline</span><span class="more-tagline">LangGraph portfolio analytics engine on DuckDB and polars, with 511 passing tests at 84% coverage.</span></span>
-        <span class="more-status">Portfolio build</span>
-        <a href="https://github.com/ChuksForge/multi-agent-pipeline" target="_blank" rel="noopener noreferrer" class="more-link" aria-label="Multi-Agent Data Pipeline on GitHub (opens in a new tab)"><span>GitHub ↗</span></a>
-      </li>
-      <li>
-        <span class="more-main"><span class="more-name">DispatchOS</span><span class="more-tagline">Nigerian last-mile logistics: PostGIS dispatch, rider scoring, and order tracking in a Turborepo monorepo.</span></span>
-        <span class="more-status">Confidential</span>
-        <span></span>
-      </li>
-      <li>
-        <span class="more-main"><span class="more-name">ARIA</span><span class="more-tagline">Embeddable AI shopping assistant for fashion merchants, multi-tenant architecture.</span></span>
-        <span class="more-status">Live</span>
-        <a href="https://ai-shopping-assistant-sooty.vercel.app" target="_blank" rel="noopener noreferrer" class="more-link" aria-label="ARIA live demo (opens in a new tab)"><span>Live demo ↗</span></a>
-      </li>
-      <li>
-        <span class="more-main"><span class="more-name">Research Synthesis Agent</span><span class="more-tagline">Researches, retrieves, evaluates, and synthesizes multi-source findings into structured reports.</span></span>
-        <span class="more-status">Shipped</span>
-        <a href="https://github.com/ChuksForge/research-synthesis-agent" target="_blank" rel="noopener noreferrer" class="more-link" aria-label="Research Synthesis Agent on GitHub (opens in a new tab)"><span>GitHub ↗</span></a>
-      </li>
-      <li>
-        <span class="more-main"><span class="more-name">LexisAI</span><span class="more-tagline">Transforms multiple raw sources into claim-based, attributed, contradiction-aware insight reports.</span></span>
-        <span class="more-status">Shipped</span>
-        <a href="https://github.com/ChuksForge/lexis-ai-public" target="_blank" rel="noopener noreferrer" class="more-link" aria-label="LexisAI on GitHub (opens in a new tab)"><span>GitHub ↗</span></a>
-      </li>
-    </ul>
-
-    <details class="more-extra">
-      <summary><span class="when-closed">Show 9 more projects</span><span class="when-open">Show fewer</span></summary>
+    <div class="more-group">
+      <h3 class="more-group-title">Production systems</h3>
+      <p class="more-group-sub">Live or delivered for real users and clients.</p>
       <ul class="more-list">
         <li>
-          <span class="more-main"><span class="more-name">Startup Analyst</span><span class="more-tagline">Six-agent system producing structured investment memos from a single company name.</span></span>
-          <span class="more-status">Shipped</span>
-          <a href="https://github.com/ChuksForge/startup-analyst" target="_blank" rel="noopener noreferrer" class="more-link" aria-label="Startup Analyst on GitHub (opens in a new tab)"><span>GitHub ↗</span></a>
-        </li>
-        <li>
-          <span class="more-main"><span class="more-name">Multi-Agent Autonomous Investment Analyst</span><span class="more-tagline">Simulated hedge fund: specialized agents debate, stress-test, and produce investment decisions.</span></span>
-          <span class="more-status">Shipped</span>
-          <a href="https://github.com/ChuksForge/investment-analyst" target="_blank" rel="noopener noreferrer" class="more-link" aria-label="Multi-Agent Autonomous Investment Analyst on GitHub (opens in a new tab)"><span>GitHub ↗</span></a>
-        </li>
-        <li>
-          <span class="more-main"><span class="more-name">AI Tools Suite</span><span class="more-tagline">Dual-product SaaS pairing a content engine with a career-development toolkit.</span></span>
-          <span class="more-status">Shipped</span>
-          <a href="https://github.com/ChuksForge/ai-tools-suite" target="_blank" rel="noopener noreferrer" class="more-link" aria-label="AI Tools Suite on GitHub (opens in a new tab)"><span>GitHub ↗</span></a>
-        </li>
-        <li>
-          <span class="more-main"><span class="more-name">AI Document Intelligence System</span><span class="more-tagline">End-to-end document processing with RAG-based QA, hallucination detection, and LLM benchmarking.</span></span>
-          <span class="more-status">Shipped</span>
-          <a href="https://github.com/ChuksForge/prompt-engineering-lab" target="_blank" rel="noopener noreferrer" class="more-link" aria-label="AI Document Intelligence System on GitHub (opens in a new tab)"><span>GitHub ↗</span></a>
-        </li>
-        <li>
-          <span class="more-main"><span class="more-name">Trading Journal &amp; Analytics Dashboard</span><span class="more-tagline">Full-stack platform for tracking, analyzing, and improving trading performance.</span></span>
-          <span class="more-status">In progress</span>
-          <a href="https://trading-journal-mocha-one.vercel.app/" target="_blank" rel="noopener noreferrer" class="more-link" aria-label="Trading Journal live demo (opens in a new tab)"><span>Live demo ↗</span></a>
-        </li>
-        <li>
-          <span class="more-main"><span class="more-name">PivotPro</span><span class="more-tagline">Viability assessment and action planning for professionals changing careers.</span></span>
-          <span class="more-status">Shipped</span>
-          <a href="https://github.com/ChuksForge/pivot-pro" target="_blank" rel="noopener noreferrer" class="more-link" aria-label="PivotPro on GitHub (opens in a new tab)"><span>GitHub ↗</span></a>
-        </li>
-        <li>
-          <span class="more-main"><span class="more-name">PriorityPilot</span><span class="more-tagline">Intelligent task orchestration with dynamic prioritization frameworks.</span></span>
-          <span class="more-status">Shipped</span>
-          <a href="https://github.com/ChuksForge/priority-pilot" target="_blank" rel="noopener noreferrer" class="more-link" aria-label="PriorityPilot on GitHub (opens in a new tab)"><span>GitHub ↗</span></a>
-        </li>
-        <li>
-          <span class="more-main"><span class="more-name">TAOP — Team AI Orchestration Platform</span><span class="more-tagline">Multi-agent team orchestration with semantic memory across agent runs.</span></span>
-          <span class="more-status">Prototype</span>
+          <span class="more-main"><span class="more-name">DispatchOS</span><span class="more-tagline">Nigerian last-mile logistics: PostGIS dispatch, rider scoring, and order tracking in a Turborepo monorepo.</span></span>
+          <span class="more-status">Confidential</span>
           <span></span>
         </li>
         <li>
-          <span class="more-main"><span class="more-name">AI Business Automation Suite</span><span class="more-tagline">Multi-tenant SaaS platform hosting independently deployable AI workflow apps.</span></span>
-          <span class="more-status">Planned</span>
-          <span></span>
+          <span class="more-main"><span class="more-name">ARIA</span><span class="more-tagline">Embeddable AI shopping assistant for fashion merchants, multi-tenant architecture.</span></span>
+          <span class="more-status">Live</span>
+          <a href="https://ai-shopping-assistant-sooty.vercel.app" target="_blank" rel="noopener noreferrer" class="more-link" aria-label="ARIA live demo (opens in a new tab)"><span>Live demo ↗</span></a>
         </li>
       </ul>
-    </details>
+    </div>
+
+    <div class="more-group">
+      <h3 class="more-group-title">Open-source and reusable tools</h3>
+      <p class="more-group-sub">Public repositories you can read.</p>
+      <ul class="more-list">
+        <li>
+          <span class="more-main"><span class="more-name">Code Review Agent</span><span class="more-tagline">LangGraph critic loop that filters LLM review findings against static analysis, so CI only sees actionable issues.</span></span>
+          <span class="more-status">Open-core</span>
+          <a href="https://github.com/ChuksForge/code-review-agent-public" target="_blank" rel="noopener noreferrer" class="more-link" aria-label="Code Review Agent on GitHub (opens in a new tab)"><span>GitHub ↗</span></a>
+        </li>
+        <li>
+          <span class="more-main"><span class="more-name">Multi-Agent Data Pipeline</span><span class="more-tagline">LangGraph portfolio analytics engine on DuckDB and polars, with 511 passing tests at 84% coverage.</span></span>
+          <span class="more-status">Portfolio build</span>
+          <a href="https://github.com/ChuksForge/multi-agent-pipeline" target="_blank" rel="noopener noreferrer" class="more-link" aria-label="Multi-Agent Data Pipeline on GitHub (opens in a new tab)"><span>GitHub ↗</span></a>
+        </li>
+        <li>
+          <span class="more-main"><span class="more-name">Research Synthesis Agent</span><span class="more-tagline">Researches, retrieves, evaluates, and synthesizes multi-source findings into structured reports.</span></span>
+          <span class="more-status">Shipped</span>
+          <a href="https://github.com/ChuksForge/research-synthesis-agent" target="_blank" rel="noopener noreferrer" class="more-link" aria-label="Research Synthesis Agent on GitHub (opens in a new tab)"><span>GitHub ↗</span></a>
+        </li>
+        <li>
+          <span class="more-main"><span class="more-name">LexisAI</span><span class="more-tagline">Transforms multiple raw sources into claim-based, attributed, contradiction-aware insight reports.</span></span>
+          <span class="more-status">Shipped</span>
+          <a href="https://github.com/ChuksForge/lexis-ai-public" target="_blank" rel="noopener noreferrer" class="more-link" aria-label="LexisAI on GitHub (opens in a new tab)"><span>GitHub ↗</span></a>
+        </li>
+      </ul>
+      <details class="fold">
+        <summary><span class="when-closed">Show 4 more open-source projects</span><span class="when-open">Show fewer</span></summary>
+        <ul class="more-list">
+          <li>
+            <span class="more-main"><span class="more-name">Startup Analyst</span><span class="more-tagline">Six-agent system producing structured investment memos from a single company name.</span></span>
+            <span class="more-status">Shipped</span>
+            <a href="https://github.com/ChuksForge/startup-analyst" target="_blank" rel="noopener noreferrer" class="more-link" aria-label="Startup Analyst on GitHub (opens in a new tab)"><span>GitHub ↗</span></a>
+          </li>
+          <li>
+            <span class="more-main"><span class="more-name">Multi-Agent Autonomous Investment Analyst</span><span class="more-tagline">Simulated hedge fund: specialized agents debate, stress-test, and produce investment decisions.</span></span>
+            <span class="more-status">Shipped</span>
+            <a href="https://github.com/ChuksForge/investment-analyst" target="_blank" rel="noopener noreferrer" class="more-link" aria-label="Multi-Agent Autonomous Investment Analyst on GitHub (opens in a new tab)"><span>GitHub ↗</span></a>
+          </li>
+          <li>
+            <span class="more-main"><span class="more-name">AI Tools Suite</span><span class="more-tagline">Dual-product SaaS pairing a content engine with a career-development toolkit.</span></span>
+            <span class="more-status">Shipped</span>
+            <a href="https://github.com/ChuksForge/ai-tools-suite" target="_blank" rel="noopener noreferrer" class="more-link" aria-label="AI Tools Suite on GitHub (opens in a new tab)"><span>GitHub ↗</span></a>
+          </li>
+          <li>
+            <span class="more-main"><span class="more-name">AI Document Intelligence System</span><span class="more-tagline">End-to-end document processing with RAG-based QA, hallucination detection, and LLM benchmarking.</span></span>
+            <span class="more-status">Shipped</span>
+            <a href="https://github.com/ChuksForge/prompt-engineering-lab" target="_blank" rel="noopener noreferrer" class="more-link" aria-label="AI Document Intelligence System on GitHub (opens in a new tab)"><span>GitHub ↗</span></a>
+          </li>
+        </ul>
+      </details>
+    </div>
+
+    <div class="more-group">
+      <h3 class="more-group-title">Research and experiments</h3>
+      <p class="more-group-sub">Prototypes, side projects, and work in progress.</p>
+      <details class="fold">
+        <summary><span class="when-closed">Show 5 experiments</span><span class="when-open">Hide experiments</span></summary>
+        <ul class="more-list">
+          <li>
+            <span class="more-main"><span class="more-name">Trading Journal &amp; Analytics Dashboard</span><span class="more-tagline">Full-stack platform for tracking, analyzing, and improving trading performance.</span></span>
+            <span class="more-status">In progress</span>
+            <a href="https://trading-journal-mocha-one.vercel.app/" target="_blank" rel="noopener noreferrer" class="more-link" aria-label="Trading Journal live demo (opens in a new tab)"><span>Live demo ↗</span></a>
+          </li>
+          <li>
+            <span class="more-main"><span class="more-name">PivotPro</span><span class="more-tagline">Viability assessment and action planning for professionals changing careers.</span></span>
+            <span class="more-status">Shipped</span>
+            <a href="https://github.com/ChuksForge/pivot-pro" target="_blank" rel="noopener noreferrer" class="more-link" aria-label="PivotPro on GitHub (opens in a new tab)"><span>GitHub ↗</span></a>
+          </li>
+          <li>
+            <span class="more-main"><span class="more-name">PriorityPilot</span><span class="more-tagline">Intelligent task orchestration with dynamic prioritization frameworks.</span></span>
+            <span class="more-status">Shipped</span>
+            <a href="https://github.com/ChuksForge/priority-pilot" target="_blank" rel="noopener noreferrer" class="more-link" aria-label="PriorityPilot on GitHub (opens in a new tab)"><span>GitHub ↗</span></a>
+          </li>
+          <li>
+            <span class="more-main"><span class="more-name">TAOP — Team AI Orchestration Platform</span><span class="more-tagline">Multi-agent team orchestration with semantic memory across agent runs.</span></span>
+            <span class="more-status">Prototype</span>
+            <span></span>
+          </li>
+          <li>
+            <span class="more-main"><span class="more-name">AI Business Automation Suite</span><span class="more-tagline">Multi-tenant SaaS platform hosting independently deployable AI workflow apps.</span></span>
+            <span class="more-status">Planned</span>
+            <span></span>
+          </li>
+        </ul>
+      </details>
+    </div>
   </div>
 </section>
 
@@ -912,15 +894,35 @@
   </div>
 </section>
 
-<!-- Contact -->
+<!-- Contact: enquiry paths open a prefilled email, no backend needed -->
 <section id="contact">
   <div class="wrap">
     <div class="section-label">Get in touch</div>
     <h2 class="contact-title">Ready to build something that has to work?</h2>
-    <p class="contact-sub">I'm taking on consulting engagements and contract work, and I'm open to select full-time AI systems engineering roles.</p>
+    <p class="contact-sub">I'm taking on consulting engagements and contract work, and I'm open to select full-time AI systems engineering roles. Pick the closest fit and I'll get a prefilled email ready for you.</p>
     <!-- TODO: add a line here with your typical response time, e.g. "I reply within one business day." -->
-    <a href="mailto:chuksforge@gmail.com?subject=Project%20enquiry" class="btn-primary">Email me</a>
-    <div class="contact-links">
+
+    <div class="paths">
+      <a class="path" href="mailto:chuksforge@gmail.com?subject=AI%20application%20enquiry&amp;body=Hi%20Christian%2C%0A%0AI%20would%20like%20to%20talk%20about%20an%20AI%20application%20(LLM%20app%2C%20RAG%20or%20agents).%0A%0AWhat%20I%20am%20building%3A%0A%0AStage%20(idea%2C%20prototype%20or%20live)%3A%0A%0ATimeline%3A%0A">
+        <span class="path-title">AI application development</span>
+        <span class="path-desc">LLM applications, RAG, and multi-agent systems built for production use.</span>
+        <span class="path-go"><span>Start this enquiry</span></span>
+      </a>
+      <a class="path" href="mailto:chuksforge@gmail.com?subject=Backend%20and%20infrastructure%20enquiry&amp;body=Hi%20Christian%2C%0A%0AI%20would%20like%20to%20talk%20about%20backend%20and%20infrastructure%20work%20(APIs%2C%20SaaS%20architecture%20or%20production%20hardening).%0A%0AWhat%20I%20am%20building%3A%0A%0AStage%20(idea%2C%20prototype%20or%20live)%3A%0A%0ATimeline%3A%0A">
+        <span class="path-title">Backend &amp; infrastructure</span>
+        <span class="path-desc">APIs, multi-tenant SaaS architecture, and production hardening for live systems.</span>
+        <span class="path-go"><span>Start this enquiry</span></span>
+      </a>
+      <a class="path" href="mailto:chuksforge@gmail.com?subject=AI%20reliability%20and%20evaluation%20enquiry&amp;body=Hi%20Christian%2C%0A%0AI%20would%20like%20to%20talk%20about%20AI%20reliability%20and%20evaluation%20(testing%2C%20benchmarking%20or%20regression%20detection).%0A%0AWhat%20I%20am%20building%3A%0A%0AStage%20(idea%2C%20prototype%20or%20live)%3A%0A%0ATimeline%3A%0A">
+        <span class="path-title">AI reliability &amp; evaluation</span>
+        <span class="path-desc">Benchmarking, regression testing, and observability for LLM behavior.</span>
+        <span class="path-go"><span>Start this enquiry</span></span>
+      </a>
+    </div>
+
+    <div class="contact-alt">
+      <span class="lead">Something else, or hiring?</span>
+      <a href="mailto:chuksforge@gmail.com?subject=Hello" class="btn-primary">Email me</a>
       <a href="https://t.me/ChuksForge" target="_blank" rel="noopener noreferrer" class="contact-link" aria-label="Telegram (opens in a new tab)"><span>Telegram</span></a>
       <a href="https://github.com/ChuksForge" target="_blank" rel="noopener noreferrer" class="contact-link" aria-label="GitHub (opens in a new tab)"><span>GitHub</span></a>
       <a href="https://x.com/ChuksForge" target="_blank" rel="noopener noreferrer" class="contact-link" aria-label="X, formerly Twitter (opens in a new tab)"><span>X (Twitter)</span></a>
@@ -953,20 +955,20 @@
       if (e.key === 'Escape' && menu.classList.contains('open')){ setMenu(false); toggle.focus(); }
     });
 
-    /* ---- Project accordions (one open at a time) ---- */
+    /* ---- Project cards (one open at a time) ---- */
     var cards = Array.prototype.slice.call(document.querySelectorAll('.project-card'));
     function setCard(card, open){
       card.classList.toggle('open', open);
-      card.querySelector('.project-header').setAttribute('aria-expanded', String(open));
+      card.querySelector('.details-btn').setAttribute('aria-expanded', String(open));
     }
     cards.forEach(function(card){
-      card.querySelector('.project-header').addEventListener('click', function(){
+      card.querySelector('.details-btn').addEventListener('click', function(){
         var willOpen = !card.classList.contains('open');
         cards.forEach(function(c){ setCard(c, c === card && willOpen); });
       });
     });
 
-    /* Proof-strip links (#bos, #evalci, #finops) open the matching project */
+    /* Links to #bos, #evalci, #finops open the matching project */
     function openFromHash(){
       var id = window.location.hash.slice(1);
       if (!id) return;
